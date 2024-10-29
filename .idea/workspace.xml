@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="added tailwindcss">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/fixitnow/backend/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/fixitnow/backend/BackendApplication.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/kotlin/com/fixitnow/backend/BackendApplicationTests.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routes/+page.svelte" afterDir="false" />
+    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="changed backend to java and mvn">
+      <change beforePath="$PROJECT_DIR$/FixItNow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SnackSafe.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,8 +130,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
