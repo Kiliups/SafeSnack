@@ -4,42 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="changed backend to java and mvn">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/BackendApplication.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/frontend.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SnackSafe.iml" afterDir="false" />
+    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="changed frontend to svelte 5">
+      <change afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SafeSnack.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/fixitnow/backend/BackendApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/fixitnow/backend/BackendApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.npmrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.prettierignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/bun.lockb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/eslint.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/postcss.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/routes/+layout.svelte" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/routes/+page.svelte" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/routes/+page.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/static/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/static/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/svelte.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/tailwind.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,38 +64,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build backend.executor": "Run",
-    "Maven.backend [clean].executor": "Run",
-    "Maven.backend [install].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.BackendApplication (1).executor": "Run",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "corretto-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Mayer/projekte/SafeSnack/backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.frontend.executor": "Run",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Users\\Mayer\\projekte\\SafeSnack\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build backend.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.backend [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.backend [install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mayer/projekte/SafeSnack/backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.frontend.executor&quot;: &quot;Run&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Mayer\\projekte\\SafeSnack\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="npm.frontend">
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Mayer\projekte\SafeSnack\backend\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.BackendApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="SnackSafe" />
       <method v="2">
@@ -166,7 +144,8 @@
       <workItem from="1729179470696" duration="3319000" />
       <workItem from="1729255666594" duration="145000" />
       <workItem from="1731240261215" duration="83000" />
-      <workItem from="1731240352361" duration="778000" />
+      <workItem from="1731240352361" duration="4182000" />
+      <workItem from="1731399396717" duration="4344000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -184,7 +163,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729103239144</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="changed frontend to svelte 5">
+      <option name="closed" value="true" />
+      <created>1731241171142</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731241171142</updated>
+    </task>
+    <task id="LOCAL-00004" summary="changed frontend to svelte 5">
+      <option name="closed" value="true" />
+      <created>1731241192692</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731241192692</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +199,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="added tailwindcss" />
-    <option name="LAST_COMMIT_MESSAGE" value="added tailwindcss" />
+    <MESSAGE value="changed frontend to svelte 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed frontend to svelte 5" />
   </component>
 </project>
