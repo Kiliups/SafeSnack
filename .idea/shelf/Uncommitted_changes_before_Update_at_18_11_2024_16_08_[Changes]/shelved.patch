@@ -1,0 +1,158 @@
+Index: backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.safesnack.backend.controller;\r\n\r\nimport com.safesnack.backend.model.RestaurantRating;\r\nimport com.safesnack.backend.service.RestaurantRatingService;\r\nimport lombok.RequiredArgsConstructor;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport java.util.List;\r\n\r\n@RestController(\"/restaurantRating\")\r\n@RequiredArgsConstructor\r\npublic class RestaurantRatingController {\r\n\r\n    private final RestaurantRatingService service;\r\n\r\n    @PostMapping\r\n    public void createRestaurantRating(@RequestBody RestaurantRating restaurantRating) {\r\n\r\n    }\r\n    @GetMapping\r\n    public List<RestaurantRating> getRestaurantRating() {\r\n        return (List<RestaurantRating>) service.findAll();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java b/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java
+--- a/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java	(revision fd0dc6959625c4e34430fb18d58bdaf43e7836f9)
++++ b/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java	(date 1731942480664)
+@@ -2,26 +2,27 @@
+ 
+ import com.safesnack.backend.model.RestaurantRating;
+ import com.safesnack.backend.service.RestaurantRatingService;
++import lombok.AllArgsConstructor;
+ import lombok.RequiredArgsConstructor;
++import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.bind.annotation.PostMapping;
+ import org.springframework.web.bind.annotation.RequestBody;
+ import org.springframework.web.bind.annotation.RestController;
+ 
+ import java.util.List;
++import java.util.logging.Logger;
+ 
+-@RestController("/restaurantRating")
+-@RequiredArgsConstructor
++@RestController
++@AllArgsConstructor
+ public class RestaurantRatingController {
+ 
+     private final RestaurantRatingService service;
+ 
+-    @PostMapping
+-    public void createRestaurantRating(@RequestBody RestaurantRating restaurantRating) {
+-
+-    }
+-    @GetMapping
++    @GetMapping("/restaurantRating")
+     public List<RestaurantRating> getRestaurantRating() {
+-        return (List<RestaurantRating>) service.findAll();
++        Logger logger = Logger.getLogger(RestaurantRatingController.class.getName());
++        logger.info("RestaurantRatingController.getRestaurantRating()");
++        return service.findAll();
+     }
+ }
+Index: backend/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n    <parent>\r\n        <groupId>org.springframework.boot</groupId>\r\n        <artifactId>spring-boot-starter-parent</artifactId>\r\n        <version>3.3.5</version>\r\n        <relativePath/> <!-- lookup parent from repository -->\r\n    </parent>\r\n    <groupId>com.safesnack</groupId>\r\n    <artifactId>backend</artifactId>\r\n    <version>0.0.1-SNAPSHOT</version>\r\n    <name>backend</name>\r\n    <description>backend</description>\r\n    <url/>\r\n    <licenses>\r\n        <license/>\r\n    </licenses>\r\n    <developers>\r\n        <developer/>\r\n    </developers>\r\n    <scm>\r\n        <connection/>\r\n        <developerConnection/>\r\n        <tag/>\r\n        <url/>\r\n    </scm>\r\n    <properties>\r\n        <java.version>21</java.version>\r\n    </properties>\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-security</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-web</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-webflux</artifactId>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-devtools</artifactId>\r\n            <scope>runtime</scope>\r\n            <optional>true</optional>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-test</artifactId>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>io.projectreactor</groupId>\r\n            <artifactId>reactor-test</artifactId>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.security</groupId>\r\n            <artifactId>spring-security-test</artifactId>\r\n            <scope>test</scope>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-data-jpa</artifactId>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.projectlombok</groupId>\r\n            <artifactId>lombok</artifactId>\r\n            <scope>provided</scope>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.postgresql</groupId>\r\n            <artifactId>postgresql</artifactId>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.springframework.boot</groupId>\r\n                <artifactId>spring-boot-maven-plugin</artifactId>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/pom.xml b/backend/pom.xml
+--- a/backend/pom.xml	(revision fd0dc6959625c4e34430fb18d58bdaf43e7836f9)
++++ b/backend/pom.xml	(date 1731941440646)
+@@ -32,10 +32,6 @@
+     <dependencies>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot-starter-security</artifactId>
+-        </dependency>
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-web</artifactId>
+         </dependency>
+         <dependency>
+Index: backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.safesnack.backend.service;\r\n\r\nimport com.safesnack.backend.model.RestaurantRating;\r\nimport com.safesnack.backend.repository.RestaurantRatingRepository;\r\nimport lombok.RequiredArgsConstructor;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\n@RequiredArgsConstructor\r\npublic class RestaurantRatingService {\r\n\r\n    private RestaurantRatingRepository restaurantRatingRepository;\r\n\r\n    public Iterable<RestaurantRating> findAll() {\r\n        return restaurantRatingRepository.findAll();\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java b/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java
+--- a/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java	(revision fd0dc6959625c4e34430fb18d58bdaf43e7836f9)
++++ b/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java	(date 1731942240120)
+@@ -2,17 +2,20 @@
+ 
+ import com.safesnack.backend.model.RestaurantRating;
+ import com.safesnack.backend.repository.RestaurantRatingRepository;
++import lombok.AllArgsConstructor;
+ import lombok.RequiredArgsConstructor;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Service;
+ 
++import java.util.List;
++
+ @Service
+-@RequiredArgsConstructor
++@AllArgsConstructor
+ public class RestaurantRatingService {
+ 
+     private RestaurantRatingRepository restaurantRatingRepository;
+ 
+-    public Iterable<RestaurantRating> findAll() {
++    public List<RestaurantRating> findAll() {
+         return restaurantRatingRepository.findAll();
+     }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"930c9f07-a493-4048-809b-bc4b586876c9\" name=\"Changes\" comment=\"init project structure\">\r\n      <change afterPath=\"$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/repository/RestaurantRatingRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$/backend\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n        <option value=\"Interface\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Kiliups&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Kiliups/SafeSnack.git&quot;,\r\n    &quot;accountId&quot;: &quot;5d05f16f-eeaa-49f9-89f6-4c194300a41a&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nRLRPPwmQcSGhNhjOCiZH2pFuE\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Gradle.Build backend.executor\": \"Run\",\r\n    \"Maven.backend [clean].executor\": \"Run\",\r\n    \"Maven.backend [install].executor\": \"Run\",\r\n    \"RequestMappingsPanelOrder0\": \"0\",\r\n    \"RequestMappingsPanelOrder1\": \"1\",\r\n    \"RequestMappingsPanelWidth0\": \"75\",\r\n    \"RequestMappingsPanelWidth1\": \"75\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"Spring Boot.BackendApplication (1).executor\": \"Run\",\r\n    \"Spring Boot.BackendApplication.executor\": \"Debug\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"jdk.selected.JAVA_MODULE\": \"corretto-21\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Mayer/projekte/SafeSnack/backend\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"npm.frontend.executor\": \"Run\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"ts.external.directory.path\": \"C:\\\\Users\\\\Mayer\\\\projekte\\\\SafeSnack\\\\frontend\\\\node_modules\\\\typescript\\\\lib\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ReactorSettings\">\r\n    <option name=\"notificationShown\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Mayer\\projekte\\SafeSnack\\backend\\src\\main\\resources\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Spring Boot.BackendApplication\">\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"SnackSafe\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"npm.frontend\" />\r\n      <item itemvalue=\"Spring Boot.BackendApplication\" />\r\n    </list>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"930c9f07-a493-4048-809b-bc4b586876c9\" name=\"Changes\" comment=\"\" />\r\n      <created>1728930935209</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1728930935209</updated>\r\n      <workItem from=\"1728930935666\" duration=\"3362000\" />\r\n      <workItem from=\"1729007004107\" duration=\"1212000\" />\r\n      <workItem from=\"1729068722415\" duration=\"3050000\" />\r\n      <workItem from=\"1729179470696\" duration=\"3319000\" />\r\n      <workItem from=\"1729255666594\" duration=\"145000\" />\r\n      <workItem from=\"1731240261215\" duration=\"83000\" />\r\n      <workItem from=\"1731240352361\" duration=\"4182000\" />\r\n      <workItem from=\"1731399396717\" duration=\"4523000\" />\r\n      <workItem from=\"1731504226382\" duration=\"969000\" />\r\n      <workItem from=\"1731511200438\" duration=\"206000\" />\r\n      <workItem from=\"1731922765130\" duration=\"2203000\" />\r\n      <workItem from=\"1731928943914\" duration=\"4158000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"init\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728932331009</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728932331009</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"added tailwindcss\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729103239144</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729103239144</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"changed frontend to svelte 5\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731241171142</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731241171142</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"changed frontend to svelte 5\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731241192692</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731241192692</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"added persistence and readme\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731406548631</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731406548632</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"init project structure\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731932542211</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731932542211</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"init\" />\r\n    <MESSAGE value=\"added tailwindcss\" />\r\n    <MESSAGE value=\"changed frontend to svelte 5\" />\r\n    <MESSAGE value=\"added persistence and readme\" />\r\n    <MESSAGE value=\"init project structure\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"init project structure\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision fd0dc6959625c4e34430fb18d58bdaf43e7836f9)
++++ b/.idea/workspace.xml	(date 1731942374712)
+@@ -4,9 +4,9 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="init project structure">
+-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/repository/RestaurantRatingRepository.java" afterDir="false" />
++    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="edited project structure">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java" afterDir="false" />
+     </list>
+@@ -144,7 +144,7 @@
+       <workItem from="1731504226382" duration="969000" />
+       <workItem from="1731511200438" duration="206000" />
+       <workItem from="1731922765130" duration="2203000" />
+-      <workItem from="1731928943914" duration="4158000" />
++      <workItem from="1731928943914" duration="6159000" />
+     </task>
+     <task id="LOCAL-00001" summary="init">
+       <option name="closed" value="true" />
+@@ -194,7 +194,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1731932542211</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="edited project structure">
++      <option name="closed" value="true" />
++      <created>1731933389452</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1731933389452</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -217,6 +225,7 @@
+     <MESSAGE value="changed frontend to svelte 5" />
+     <MESSAGE value="added persistence and readme" />
+     <MESSAGE value="init project structure" />
+-    <option name="LAST_COMMIT_MESSAGE" value="init project structure" />
++    <MESSAGE value="edited project structure" />
++    <option name="LAST_COMMIT_MESSAGE" value="edited project structure" />
+   </component>
+ </project>
+\ No newline at end of file

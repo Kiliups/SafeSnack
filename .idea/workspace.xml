@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="init project structure">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/repository/RestaurantRatingRepository.java" afterDir="false" />
+    <list default="true" id="930c9f07-a493-4048-809b-bc4b586876c9" name="Changes" comment="edited project structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/controller/RestaurantRatingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/safesnack/backend/service/RestaurantRatingService.java" afterDir="false" />
     </list>
@@ -35,13 +35,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -55,6 +59,9 @@
     &quot;accountId&quot;: &quot;5d05f16f-eeaa-49f9-89f6-4c194300a41a&quot;
   }
 }</component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -69,6 +76,7 @@
     "Gradle.Build backend.executor": "Run",
     "Maven.backend [clean].executor": "Run",
     "Maven.backend [install].executor": "Run",
+    "Maven.backend [org.springdoc:springdoc-openapi-maven-plugin:1.4:generate].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -91,7 +99,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "actions.on.save",
     "ts.external.directory.path": "C:\\Users\\Mayer\\projekte\\SafeSnack\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -144,7 +152,7 @@
       <workItem from="1731504226382" duration="969000" />
       <workItem from="1731511200438" duration="206000" />
       <workItem from="1731922765130" duration="2203000" />
-      <workItem from="1731928943914" duration="4158000" />
+      <workItem from="1731928943914" duration="10157000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -194,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731932542211</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="edited project structure">
+      <option name="closed" value="true" />
+      <created>1731933389452</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731933389452</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +233,11 @@
     <MESSAGE value="changed frontend to svelte 5" />
     <MESSAGE value="added persistence and readme" />
     <MESSAGE value="init project structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="init project structure" />
+    <MESSAGE value="edited project structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="edited project structure" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
