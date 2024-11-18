@@ -7,10 +7,15 @@ import lombok.Data;
 @Entity
 @Table(name = "allergen")
 public class Allergen {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "allergy_id")
+    private Allergy allergy;
 }
