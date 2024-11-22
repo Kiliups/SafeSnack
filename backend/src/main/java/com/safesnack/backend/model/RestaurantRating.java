@@ -16,7 +16,7 @@ public class RestaurantRating {
     private String comment;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserPrincipal user;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
