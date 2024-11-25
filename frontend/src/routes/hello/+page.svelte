@@ -52,7 +52,6 @@
 
             const roleData: Array<Authority> = await response.json();  // Type the response as UserMeta
             currentUserRoles.set(roleData);  // Set the store with the fetched user data
-            console.log($currentUserRoles);
         } catch (error) {
             console.error('Error fetching current user:', error);
         }
@@ -150,6 +149,8 @@
     {#if $currentUser}
         <h1>Hello, {$currentUser.name}!</h1>
         <p>Welcome back!</p>
+
+        <a href="/admin">Dashboard</a>
 
         {#if $currentUserRoles.length > 0}
             <p>Your Roles:</p>

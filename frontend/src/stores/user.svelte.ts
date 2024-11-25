@@ -7,4 +7,3 @@ export const currentUser = writable<UserMeta | null>(null);
 export const currentUserRoles = writable<Authority[]>([]);
 
 
-

@@ -2,30 +2,7 @@
     import {currentUserRoles} from '../../stores/user.svelte';
     // Reactive variable to check if the user is an admin
     let isAdmin: boolean;
-
-
-    console.log($currentUserRoles);
-
-    // subscribe to the currentUserRoles store
-    currentUserRoles.subscribe((value) => {
-        console.log('subscribe triggered')
-        console.log($currentUserRoles)
-        // for each
-        for (let authority of value) {
-            if (authority.authority === 'ROLE_ADMIN') {
-                isAdmin = true;
-                break;
-            }
-        }
-    });
-
-    // for each
-    for (let authority of $currentUserRoles) {
-        if (authority.authority === 'ROLE_ADMIN') {
-            isAdmin = true;
-            break;
-        }
-    }
+    $: isAdmin = $currentUserRoles.some(authority => authority.authority === 'ROLE_ADMIN');
 </script>
 
 {#if isAdmin}
