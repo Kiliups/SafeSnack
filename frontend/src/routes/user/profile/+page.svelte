@@ -15,6 +15,10 @@
         alert("Edit Profile clicked!");
     }
 
+    function handleImgClick() {
+        goto('/user/hello')
+    }
+
     // logout function
     async function handleLogout() {
         try {
@@ -40,11 +44,17 @@
     <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <!-- Profile Header -->
         <div class="flex items-center justify-center mb-6">
-            <img
-                    src="../../../../img/pepe.png"
-                    alt="User Avatar"
-                    class="w-32 h-32 rounded-full border-4 border-indigo-600"
-            />
+            <button
+                    type="button"
+                    on:click={handleImgClick}
+                    class="p-0 border-none focus:outline-none"
+            >
+                <img
+                        src="../../../../img/pepe.png"
+                        alt="User Avatar"
+                        class="w-32 h-32 rounded-full border-4 border-indigo-600"
+                />
+            </button>
         </div>
 
         <h2 class="text-3xl font-semibold text-center text-gray-800 mb-4">{$currentUser?.name}</h2>

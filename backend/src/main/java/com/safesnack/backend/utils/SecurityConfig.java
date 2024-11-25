@@ -1,26 +1,18 @@
 package com.safesnack.backend.utils;
 
 import com.safesnack.backend.service.CustomAuthenticationSuccessHandler;
-import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
-import org.apache.tomcat.util.http.SameSiteCookies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -28,36 +20,6 @@ public class SecurityConfig {
 
     @Autowired
     private CustomAuthenticationSuccessHandler successHandler;
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                // Configure request authorization
-//                .authorizeHttpRequests(auth -> auth
-//                        // Permit static resources
-//                        .requestMatchers("/js/**", "/css/**", "/img/**", "/webjars/**").permitAll()
-//                        // Restrict access to specific roles/authorities
-//                        .requestMatchers("/admin").hasRole("ADMIN")
-//                        // All other requests require authentication
-//                        .anyRequest().authenticated()
-//                )
-//
-//                // Configure HTTP Basic authentication for specific endpoints
-//                .httpBasic(Customizer.withDefaults())
-//
-//                // Configure form-based login
-//                .formLogin(form -> form
-//                        // Use default login page or customize if needed
-//                        .loginPage("/login") // Optional: specify custom login page
-//                        .permitAll()
-//                        .successHandler(successHandler)
-//                )
-//
-//                // configure logout
-//                .logout(LogoutConfigurer::permitAll);
-//
-//        return http.build();
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -79,7 +41,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 // use HttpBasic authentication for /update-user
                 .httpBasic(Customizer.withDefaults())
-         //Configure form-based login
+                //Configure form-based login
                 .formLogin(form -> form
                         // Use default login page or customize if needed
                         .loginPage("/login") // Optional: specify custom login page

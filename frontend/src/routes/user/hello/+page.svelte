@@ -11,7 +11,7 @@
     });
 
     // logout function
-    const logout = async () => {
+    async function handleLogout() {
         try {
             const response = await fetch('http://localhost:8080/logout', {
                 method: 'POST',
@@ -28,7 +28,7 @@
         } catch (error) {
             console.error('Error logging out:', error);
         }
-    };
+    }
 </script>
 
 <div class="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -67,7 +67,7 @@
 
         <div class="text-center mb-6">
             <button
-                    on:click={logout}
+                    on:click={handleLogout}
                     class="py-3 px-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200"
             >
                 Log Out
