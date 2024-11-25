@@ -22,7 +22,7 @@ public class CustomUserService implements UserDetailsService {
             throws UsernameNotFoundException {
 
         return userPrincipalRepo
-                .findByUsername(username)
+                .findByUsername(username.toUpperCase()) // Uppercase since usernames are in capslock in the db
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "User not found with username or email : "
                                 + username)

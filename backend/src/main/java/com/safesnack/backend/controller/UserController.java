@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -24,6 +26,15 @@ public class UserController {
         UserPrincipal principal =
                 (UserPrincipal) authentication.getPrincipal();
         return principal.getUserMeta();
+    }
+
+    @GetMapping("/current-user-roles")
+    // tell Spring to inject the user's Authentication token
+    public List<Authority> getUserRoles(Authentication authentication) {
+        // use the token to retrieve the UserMeta object
+        UserPrincipal principal =
+                (UserPrincipal) authentication.getPrincipal();
+        return principal.getAuthorities();
     }
 }
 
