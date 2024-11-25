@@ -1,11 +1,8 @@
 <script lang="ts">
-    import {currentUserRoles} from '../../stores/user.svelte';
-    // Reactive variable to check if the user is an admin
-    let isAdmin: boolean;
-    $: isAdmin = $currentUserRoles.some(authority => authority.authority === 'ROLE_ADMIN');
+    import {isAdmin} from '../../stores/user.js';
 </script>
 
-{#if isAdmin}
+{#if $isAdmin}
     <h1>Admin Dashboard</h1>
     <p>Welcome back!</p>
 {:else}

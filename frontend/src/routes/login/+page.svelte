@@ -1,13 +1,17 @@
 <script lang="ts">
-    import { goto } from '$app/navigation';
+    import {goto} from '$app/navigation';
+    import type {UserMeta} from "../../types/UserMeta";
+    import type {Authority} from "../../types/Authority";
+    import {currentUser, currentUserRoles} from "../../stores/user";
 
     let username = '';
     let password = '';
-    let error = '';
+    let errorMessage = '';
 
-    const handleSubmit = async (event: SubmitEvent) => {
+    // Handle login form submission
+    async function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
-        error = '';
+        errorMessage = '';
 
         try {
             const response = await fetch('http://localhost:8080/login', {
@@ -15,93 +19,104 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ username, password }),
-                credentials: 'include', // Include cookies for session management
+                body: new URLSearchParams({username, password}),
+                credentials: 'include',
             });
 
-            if (!response.ok) {
-                if (response.status === 401) {
-                    const message = await response.text(); // Read custom error message
-                    error = message || 'Error occurred without message. Please try again.';
-                } else {
-                    error = 'An unexpected error occurred.';
-                }
-                return;
+            if (response.ok) {
+                await getUserDetails();
+                await goto('/user/hello');
+            } else {
+                errorMessage = response.status === 401 ? (await response.text()) || 'Username or password is wrong. Please try again.' : 'An unexpected error occurred.';
+                password = ''; // Clear the password field
             }
-
-            // Successful login
-            error = "success!"
-            await goto('/hello'); // Redirect to a secure page after login
         } catch (err) {
-            error = 'An error occurred. Please try again.';
+            errorMessage = 'An error occurred. Please try again.';
+            password = ''; // Clear the password field
             console.error(err);
         }
-    };
+    }
+
+    async function getUserDetails() {
+        const [userResponse, rolesResponse] = await Promise.all([
+            fetch('http://localhost:8080/current-user', {
+                method: 'GET',
+                credentials: 'include',
+            }),
+            fetch('http://localhost:8080/current-user-roles', {
+                method: 'GET',
+                credentials: 'include',
+            })
+        ]);
+
+        if (userResponse.ok && rolesResponse.ok) {
+            const userData: UserMeta = await userResponse.json();
+            const roleData: Array<Authority> = await rolesResponse.json();
+
+            currentUser.set(userData);
+            currentUserRoles.set(roleData);
+        } else {
+            console.error('Failed to fetch user data or roles');
+        }
+    }
 </script>
 
 <style>
-    .login-container {
-        max-width: 400px;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
     .error-message {
         color: red;
-        font-size: 0.9rem;
-        margin-bottom: 10px;
-    }
-
-    input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    button {
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #0056b3;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
     }
 </style>
 
-<div class="login-container">
-    <form on:submit={handleSubmit}>
-        <h1>Login</h1>
 
-        {#if error}
-            <div class="error-message">{error}</div>
-        {/if}
+<div class="min-h-screen bg-gray-100 flex items-center justify-center py-12">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Login</h2>
 
-        <input
-                id="username"
-                type="text"
-                bind:value={username}
-                placeholder="Enter your username"
-                required
-        />
+        <!-- Login form -->
+        <form on:submit|preventDefault={handleSubmit} class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email or Username</label>
+                <input
+                        id="email"
+                        type="text"
+                        bind:value={username}
+                        class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Enter your email or username"
+                        required
+                />
+            </div>
 
-        <input
-                id="password"
-                type="password"
-                bind:value={password}
-                placeholder="Enter your password"
-                required
-        />
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input
+                        id="password"
+                        type="password"
+                        bind:value={password}
+                        class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Enter your password"
+                        required
+                />
+            </div>
 
-        <button type="submit">Login</button>
-    </form>
+            <!-- Error message display -->
+            {#if errorMessage}
+                <div class="error-message">{errorMessage}</div>
+            {/if}
+
+            <div class="flex justify-center">
+                <button
+                        type="submit"
+                        class="w-full py-3 px-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200"
+                >
+                    Login
+                </button>
+            </div>
+        </form>
+
+        <div class="text-center text-sm mt-4">
+            <a href="/forgot-password" class="text-indigo-600 hover:text-indigo-800">Forgot your password?</a>
+        </div>
+    </div>
 </div>
