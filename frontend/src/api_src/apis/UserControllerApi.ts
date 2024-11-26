@@ -152,7 +152,7 @@ export class UserControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async showChangePasswordPageRaw(requestParameters: ShowChangePasswordPageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    async showChangePasswordPageRaw(requestParameters: ShowChangePasswordPageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['token'] == null) {
             throw new runtime.RequiredError(
                 'token',
@@ -175,18 +175,13 @@ export class UserControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      */
-    async showChangePasswordPage(requestParameters: ShowChangePasswordPageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.showChangePasswordPageRaw(requestParameters, initOverrides);
-        return await response.value();
+    async showChangePasswordPage(requestParameters: ShowChangePasswordPageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.showChangePasswordPageRaw(requestParameters, initOverrides);
     }
 
     /**

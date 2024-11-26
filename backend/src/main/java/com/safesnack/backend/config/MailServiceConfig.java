@@ -1,4 +1,4 @@
-package com.safesnack.backend.utils;
+package com.safesnack.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

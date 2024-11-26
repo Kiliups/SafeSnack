@@ -13,6 +13,7 @@ import com.safesnack.backend.service.MailService;
 import com.safesnack.backend.service.SecurityService;
 import com.safesnack.backend.service.UserDataChangeService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -66,6 +68,8 @@ public class UserController {
         try {
             PasswordResetToken token = userDataChangeService.generateResetToken(userEmail);
             String requestUrl = request.getRequestURL().toString();
+            // extract base url
+            requestUrl = requestUrl.replace(request.getServletPath(), "");
             SimpleMailMessage msg = mailService.constructResetTokenEmail(requestUrl, token.getToken(), userEmail);
             mailService.sendEmail(msg);
         } catch (MailException mailException) {
@@ -78,16 +82,15 @@ public class UserController {
     }
 
     @GetMapping("/user/changePassword")
-    public String showChangePasswordPage(Model model, @RequestParam("token") String token) {
+    public void showChangePasswordPage(Model model, @RequestParam("token") String token, HttpServletResponse response) throws IOException {
         String result = securityService.validatePasswordResetToken(token);
-        if (result != null) {
+        if (result == null) {
             // TODO: Implement localization
             String message = "invalid token";
-            // return redirect
-            return "redirect:/login" + "&message=" + message;
+            response.sendRedirect("http://localhost:5173/login");
         } else {
             model.addAttribute("token", token);
-            return "redirect:/login/updatePassword";
+            response.sendRedirect("http://localhost:5173/login/updatePassword?token=" + token);
         }
     }
 
@@ -96,7 +99,7 @@ public class UserController {
         String token = resetContainer.getToken();
         String result = securityService.validatePasswordResetToken(token);
 
-        if (result != null) {
+        if (result == null) {
             // wrong token response
             return ResponseEntity.ok("token expired");
         }
@@ -109,6 +112,7 @@ public class UserController {
 
         // change the password
         userDataChangeService.changeUserPassword(passwordResetToken.get().getUser(), resetContainer.getNewPassword());
+        passwordResetTokenRepository.delete(passwordResetToken.get());
         return ResponseEntity.ok("successfully changed password");
     }
 }

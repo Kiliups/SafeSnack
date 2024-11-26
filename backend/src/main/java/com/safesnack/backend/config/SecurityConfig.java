@@ -37,6 +37,8 @@ public class SecurityConfig {
                         // admin page can only be accessed with ROLE_ADMIN
                         .requestMatchers("/admin")
                         .hasRole("ADMIN")
+                        .requestMatchers("/user/changePassword", "/user/resetPassword", "/user/savePassword")
+                        .permitAll()
                         // all others requests require authentication
                         .anyRequest().authenticated())
                 // use HttpBasic authentication for /update-user

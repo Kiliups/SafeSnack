@@ -24,12 +24,6 @@ export interface PasswordResetContainer {
      * @type {string}
      * @memberof PasswordResetContainer
      */
-    oldPassword?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PasswordResetContainer
-     */
     token?: string;
     /**
      * 
@@ -56,7 +50,6 @@ export function PasswordResetContainerFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'oldPassword': json['oldPassword'] == null ? undefined : json['oldPassword'],
         'token': json['token'] == null ? undefined : json['token'],
         'newPassword': json['newPassword'] == null ? undefined : json['newPassword'],
     };
@@ -73,7 +66,6 @@ export function PasswordResetContainerToJSONTyped(value?: PasswordResetContainer
 
     return {
         
-        'oldPassword': value['oldPassword'],
         'token': value['token'],
         'newPassword': value['newPassword'],
     };
