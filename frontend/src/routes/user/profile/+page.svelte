@@ -1,14 +1,7 @@
 <script>
-    import {currentUser, currentUserRoles} from '../../../stores/user';
     import {goto} from '$app/navigation';
-    import {onMount} from "svelte";
-
-    onMount(() => {
-        // Check if the user is logged in, if not, redirect to the login page
-        if (!$currentUser) {
-            goto('/login'); // Redirect to the login page
-        }
-    });
+    import {authStore} from "../../../stores/auth";
+    import {logout} from "../../../api_adapter/apiAdapter";
 
     function handleEditProfile() {
         // TODO: Implement edit profile functionality
@@ -17,26 +10,6 @@
 
     function handleImgClick() {
         goto('/user/hello')
-    }
-
-    // logout function
-    async function handleLogout() {
-        try {
-            const response = await fetch('http://localhost:8080/logout', {
-                method: 'POST',
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                currentUser.set(null);
-                currentUserRoles.set([]);
-                await goto('/login');
-            } else {
-                console.error('Failed to logout');
-            }
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
     }
 </script>
 
@@ -57,8 +30,8 @@
             </button>
         </div>
 
-        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-4">{$currentUser?.name}</h2>
-        <p class="text-center text-gray-600 mb-4">{$currentUser?.email}</p>
+        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-4">{$authStore?.user?.name}</h2>
+        <p class="text-center text-gray-600 mb-4">{$authStore?.user?.email}</p>
 
         <!-- Buttons -->
         <div class="flex justify-center gap-4">
@@ -70,7 +43,7 @@
             </button>
 
             <button
-                    on:click={handleLogout}
+                    on:click={logout}
                     class="py-3 px-6 bg-red-600 text-white rounded-md hover:bg-red-700 focus:ring-4 focus:ring-red-200"
             >
                 Log Out

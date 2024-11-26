@@ -20,13 +20,13 @@ import {
     RestaurantToJSON,
     RestaurantToJSONTyped,
 } from './Restaurant';
-import type { User } from './User';
+import type { UserPrincipal } from './UserPrincipal';
 import {
-    UserFromJSON,
-    UserFromJSONTyped,
-    UserToJSON,
-    UserToJSONTyped,
-} from './User';
+    UserPrincipalFromJSON,
+    UserPrincipalFromJSONTyped,
+    UserPrincipalToJSON,
+    UserPrincipalToJSONTyped,
+} from './UserPrincipal';
 
 /**
  * 
@@ -54,10 +54,10 @@ export interface RestaurantRating {
     comment?: string;
     /**
      * 
-     * @type {User}
+     * @type {UserPrincipal}
      * @memberof RestaurantRating
      */
-    user?: User;
+    user?: UserPrincipal;
     /**
      * 
      * @type {Restaurant}
@@ -86,7 +86,7 @@ export function RestaurantRatingFromJSONTyped(json: any, ignoreDiscriminator: bo
         'id': json['id'] == null ? undefined : json['id'],
         'rating': json['rating'] == null ? undefined : json['rating'],
         'comment': json['comment'] == null ? undefined : json['comment'],
-        'user': json['user'] == null ? undefined : UserFromJSON(json['user']),
+        'user': json['user'] == null ? undefined : UserPrincipalFromJSON(json['user']),
         'restaurant': json['restaurant'] == null ? undefined : RestaurantFromJSON(json['restaurant']),
     };
 }
@@ -105,7 +105,7 @@ export function RestaurantRatingToJSONTyped(value?: RestaurantRating | null, ign
         'id': value['id'],
         'rating': value['rating'],
         'comment': value['comment'],
-        'user': UserToJSON(value['user']),
+        'user': UserPrincipalToJSON(value['user']),
         'restaurant': RestaurantToJSON(value['restaurant']),
     };
 }

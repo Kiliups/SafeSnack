@@ -1,8 +1,6 @@
 <script lang="ts">
     import {goto} from '$app/navigation';
-    import type {UserMeta} from "../../types/UserMeta";
-    import type {Authority} from "../../types/Authority";
-    import {currentUser, currentUserRoles} from "../../stores/user";
+    import {setAuthStore} from "../../api_adapter/apiAdapter";
 
     let username = '';
     let password = '';
@@ -24,7 +22,7 @@
             });
 
             if (response.ok) {
-                await getUserDetails();
+                await setAuthStore();
                 await goto('/user/hello');
             } else {
                 errorMessage = response.status === 401 ? (await response.text()) || 'Username or password is wrong. Please try again.' : 'An unexpected error occurred.';
@@ -34,29 +32,6 @@
             errorMessage = 'An error occurred. Please try again.';
             password = ''; // Clear the password field
             console.error(err);
-        }
-    }
-
-    async function getUserDetails() {
-        const [userResponse, rolesResponse] = await Promise.all([
-            fetch('http://localhost:8080/current-user', {
-                method: 'GET',
-                credentials: 'include',
-            }),
-            fetch('http://localhost:8080/current-user-roles', {
-                method: 'GET',
-                credentials: 'include',
-            })
-        ]);
-
-        if (userResponse.ok && rolesResponse.ok) {
-            const userData: UserMeta = await userResponse.json();
-            const roleData: Array<Authority> = await rolesResponse.json();
-
-            currentUser.set(userData);
-            currentUserRoles.set(roleData);
-        } else {
-            console.error('Failed to fetch user data or roles');
         }
     }
 </script>

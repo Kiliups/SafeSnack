@@ -1,4 +1,4 @@
-package com.safesnack.backend.utils;
+package com.safesnack.backend.config;
 
 import com.safesnack.backend.service.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +28,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 // start changing endpoint authorization requirements
                 .authorizeHttpRequests(auth -> auth
-                        // permit all requests to the following four paths
-                        // they contain static resources and are required
-                        // to present the pages
+                        /* permit all requests to the following path they contain static resources and are required
+                         to present the pages */
+                        //v3 is required for generation of the OpenAPI documentation
                         .requestMatchers(
-                                "/js/**", "/css/**", "/img/**", "/webjars/**")
+                                "/js/**", "/css/**", "/img/**", "/webjars/**", "/v3/**")
                         .permitAll()
                         // admin page can only be accessed with ROLE_ADMIN
                         .requestMatchers("/admin")

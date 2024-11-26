@@ -1,12 +1,15 @@
 package com.safesnack.backend.controller;
 
-import com.safesnack.backend.model.*;
-import com.safesnack.backend.service.*;
+import com.safesnack.backend.container.UserContainer;
+import com.safesnack.backend.model.UserMeta;
+import com.safesnack.backend.model.UserPrincipal;
+import com.safesnack.backend.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
@@ -21,20 +24,14 @@ public class UserController {
 
     @GetMapping("/current-user")
     // tell Spring to inject the user's Authentication token
-    public UserMeta getUser(Authentication authentication) {
+    public UserContainer getUser(Authentication authentication) {
         // use the token to retrieve the UserMeta object
         UserPrincipal principal =
                 (UserPrincipal) authentication.getPrincipal();
-        return principal.getUserMeta();
-    }
-
-    @GetMapping("/current-user-roles")
-    // tell Spring to inject the user's Authentication token
-    public List<Authority> getUserRoles(Authentication authentication) {
-        // use the token to retrieve the UserMeta object
-        UserPrincipal principal =
-                (UserPrincipal) authentication.getPrincipal();
-        return principal.getAuthorities();
+        UserContainer userContainer = new UserContainer();
+        userContainer.setUser(principal.getUserMeta());
+        userContainer.setRoles(principal.getAuthorities());
+        return userContainer;
     }
 }
 

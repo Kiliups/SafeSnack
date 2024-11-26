@@ -16,50 +16,50 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface User
+ * @interface Authority
  */
-export interface User {
+export interface Authority {
     /**
      * 
      * @type {number}
-     * @memberof User
+     * @memberof Authority
      */
     id?: number;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof Authority
      */
-    name?: string;
+    authority?: string;
 }
 
 /**
- * Check if a given object implements the User interface.
+ * Check if a given object implements the Authority interface.
  */
-export function instanceOfUser(value: object): value is User {
+export function instanceOfAuthority(value: object): value is Authority {
     return true;
 }
 
-export function UserFromJSON(json: any): User {
-    return UserFromJSONTyped(json, false);
+export function AuthorityFromJSON(json: any): Authority {
+    return AuthorityFromJSONTyped(json, false);
 }
 
-export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User {
+export function AuthorityFromJSONTyped(json: any, ignoreDiscriminator: boolean): Authority {
     if (json == null) {
         return json;
     }
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
+        'authority': json['authority'] == null ? undefined : json['authority'],
     };
 }
 
-export function UserToJSON(json: any): User {
-    return UserToJSONTyped(json, false);
+export function AuthorityToJSON(json: any): Authority {
+    return AuthorityToJSONTyped(json, false);
 }
 
-export function UserToJSONTyped(value?: User | null, ignoreDiscriminator: boolean = false): any {
+export function AuthorityToJSONTyped(value?: Authority | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
@@ -67,7 +67,7 @@ export function UserToJSONTyped(value?: User | null, ignoreDiscriminator: boolea
     return {
         
         'id': value['id'],
-        'name': value['name'],
+        'authority': value['authority'],
     };
 }
 

@@ -1,35 +1,11 @@
 <script lang="ts">
-    import {currentUser, currentUserRoles, isAdmin} from '../stores/user';
-    import {goto} from '$app/navigation';
+    import {authStore, isAdmin} from "../stores/auth";
+    import {logout} from "../api_adapter/apiAdapter";
 
     let isMenuOpen = false; // State for mobile menu
 
-    function navigateTo(route: string) {
-        goto(route);
-    }
-
     function toggleMenu() {
         isMenuOpen = !isMenuOpen; // Toggle the menu visibility
-    }
-
-    // logout function
-    async function handleLogout() {
-        try {
-            const response = await fetch('http://localhost:8080/logout', {
-                method: 'POST',
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                currentUser.set(null);
-                currentUserRoles.set([]);
-                await goto('/login');
-            } else {
-                console.error('Failed to logout');
-            }
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
     }
 </script>
 
@@ -65,9 +41,9 @@
         </div>
 
         <!-- Logout Button (Always Visible) -->
-        {#if $currentUser}
+        {#if $authStore?.user}
             <button
-                    on:click={handleLogout}
+                    on:click={logout}
                     class="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
             >
                 Logout

@@ -1,9 +1,12 @@
-.openapi-generator-ignore
 apis/RestaurantRatingControllerApi.ts
+apis/UserControllerApi.ts
 apis/index.ts
 index.ts
+models/Authority.ts
 models/Restaurant.ts
 models/RestaurantRating.ts
-models/User.ts
+models/UserContainer.ts
+models/UserMeta.ts
+models/UserPrincipal.ts
 models/index.ts
 runtime.ts

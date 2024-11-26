@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {isAdmin} from '../../stores/user.js';
+    import {isAdmin} from '../../stores/auth';
 </script>
 
 <h1 class="flex flex-col justify-center items-center w-full h-full">
