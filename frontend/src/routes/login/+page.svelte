@@ -116,7 +116,7 @@
         </form>
 
         <div class="text-center text-sm mt-4">
-            <a href="/forgot-password" class="text-indigo-600 hover:text-indigo-800">Forgot your password?</a>
+            <a href="/login/forgot" class="text-indigo-600 hover:text-indigo-800">Forgot your password?</a>
         </div>
     </div>
 </div>
