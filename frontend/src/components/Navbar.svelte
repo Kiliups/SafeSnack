@@ -9,10 +9,10 @@
     }
 </script>
 
-<nav class="bg-gray-800 text-white fixed top-0 left-0 w-full z-50 shadow-lg">
+<nav class="bg-ground text-primary fixed top-0 left-0 w-full z-50 shadow-lg">
     <div class="container mx-auto px-4 flex justify-between items-center h-16">
         <!-- Logo -->
-        <a href="/" class="text-xl font-bold text-white hover:text-indigo-400">SafeSnack</a>
+        <a href="/" class="text-xl font-bold hover:text-indigo-300">SafeSnack</a>
 
         <!-- Hamburger Menu Button -->
         <button
@@ -33,10 +33,10 @@
 
         <!-- Desktop Links -->
         <div class="hidden md:flex space-x-4">
-            <a href="/" class="hover:text-indigo-400">Home</a>
-            <a href="/user/profile" class="hover:text-indigo-400">Profile</a>
+            <a href="/" class="hover:text-indigo-300">Home</a>
+            <a href="/user/profile" class="hover:text-indigo-300">Profile</a>
             {#if $isAdmin}
-                <a href="/admin" class="hover:text-indigo-400">Admin Dashboard</a>
+                <a href="/admin" class="hover:text-indigo-300">Admin Dashboard</a>
             {/if}
         </div>
 
@@ -44,12 +44,12 @@
         {#if $authStore?.user}
             <button
                     on:click={logout}
-                    class="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+                    class="bg-error px-4 py-2 rounded text-ground"
             >
                 Logout
             </button>
         {:else}
-            <a href="/login" class="bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700">Login</a>
+            <a href="/login" class="bg-accent px-4 py-2 rounded hover:bg-indigo-300 text-ground">Login</a>
         {/if}
     </div>
 
