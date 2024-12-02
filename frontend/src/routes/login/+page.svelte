@@ -11,28 +11,28 @@
         event.preventDefault();
         errorMessage = '';
 
-        try {
-            const response = await fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({username, password}),
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                await setAuthStore();
-                await goto('/user/hello');
-            } else {
-                errorMessage = response.status === 401 ? (await response.text()) || 'Username or password is wrong. Please try again.' : 'An unexpected error occurred.';
+        fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({username, password}),
+            credentials: 'include',
+        })
+            .then(async (response) => {
+                if (response.ok) {
+                    await setAuthStore();
+                    await goto('/user/hello');
+                } else {
+                    errorMessage = response.status === 401 ? (await response.text()) || 'Username or password is wrong. Please try again.' : 'An unexpected error occurred.';
+                    password = ''; // Clear the password field
+                }
+            })
+            .catch((err) => {
+                errorMessage = 'An error occurred. Please try again.';
                 password = ''; // Clear the password field
-            }
-        } catch (err) {
-            errorMessage = 'An error occurred. Please try again.';
-            password = ''; // Clear the password field
-            console.error(err);
-        }
+                console.error(err);
+            });
     }
 </script>
 

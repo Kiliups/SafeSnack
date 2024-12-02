@@ -20,7 +20,7 @@ public class SecurityService {
         this.passwordTokenRepository = passwordTokenRepository;
     }
 
-    public String validatePasswordResetToken(String token) {
+    public String validatePasswordResetToken(String token) throws TokenNotFoundException, TokenExpiredException {
         Optional<PasswordResetToken> passToken = passwordTokenRepository.findByToken(token);
         // check if the token is found
 

@@ -1,7 +1,11 @@
 package com.safesnack.backend;
 
-import com.safesnack.backend.model.*;
-import com.safesnack.backend.repository.*;
+import com.safesnack.backend.model.Authority;
+import com.safesnack.backend.model.AuthorityEnum;
+import com.safesnack.backend.model.UserMeta;
+import com.safesnack.backend.model.UserPrincipal;
+import com.safesnack.backend.repository.IAuthorityRepo;
+import com.safesnack.backend.repository.IUserPrincipalRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -39,7 +43,7 @@ public class BackendApplication implements CommandLineRunner {
 
         if (authorityRepo.findAll().isEmpty()) {
             authorityRepo.saveAll(Arrays.asList(
-                    userAuth,adminAuth));
+                    userAuth, adminAuth));
         }
 
         UserMeta admin = UserMeta.builder()

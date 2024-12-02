@@ -1,7 +1,7 @@
 <script>
     import {goto} from '$app/navigation';
-    import {authStore} from "../../../stores/auth";
     import {logout} from "../../../api_adapter/apiAdapter";
+    import {authStore} from "../../../stores/auth";
 
     function handleEditProfile() {
         // TODO: Implement edit profile functionality

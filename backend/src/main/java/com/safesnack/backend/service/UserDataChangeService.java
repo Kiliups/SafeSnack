@@ -49,6 +49,22 @@ public class UserDataChangeService {
                         String.format("No user principle is linked with user metadata id '%d' " +
                                 "(email: '%s', name: '%s')", user.getId(), user.getEmail(), user.getName())));
 
+        // check if there is a token for that user already
+        PasswordResetToken existingToken = passwordResetTokenRepository.findByUser(userPrincipal)
+                .orElse(null);
+
+        // check if the existing token is still valid, and if yes replace with new token
+        if (existingToken != null) {
+            // check if the token is still valid
+            if (existingToken.getExpiryDate().getTime() - System.currentTimeMillis() > 0) {
+                // token is still valid.
+                return existingToken;
+            }
+            // token is expired, delete it.
+            passwordResetTokenRepository.delete(existingToken);
+        }
+
+        // create new token
         String token = UUID.randomUUID().toString();
         PasswordResetToken myToken = new PasswordResetToken(token, userPrincipal);
         passwordResetTokenRepository.save(myToken);

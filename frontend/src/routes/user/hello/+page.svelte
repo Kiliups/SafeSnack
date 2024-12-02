@@ -1,7 +1,7 @@
 <script lang="ts">
     import {goto} from '$app/navigation';
-    import {authStore, isAdmin} from "../../../stores/auth";
     import {logout} from "../../../api_adapter/apiAdapter";
+    import {authStore, isAdmin} from "../../../stores/auth";
 </script>
 
 <div class="min-h-screen bg-gray-100 flex items-center justify-center">

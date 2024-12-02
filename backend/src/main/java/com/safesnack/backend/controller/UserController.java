@@ -2,6 +2,8 @@ package com.safesnack.backend.controller;
 
 import com.safesnack.backend.container.PasswordResetContainer;
 import com.safesnack.backend.container.UserContainer;
+import com.safesnack.backend.exceptions.TokenExpiredException;
+import com.safesnack.backend.exceptions.TokenNotFoundException;
 import com.safesnack.backend.model.PasswordResetToken;
 import com.safesnack.backend.model.UserMeta;
 import com.safesnack.backend.model.UserPrincipal;
@@ -83,14 +85,14 @@ public class UserController {
 
     @GetMapping("/user/changePassword")
     public void showChangePasswordPage(Model model, @RequestParam("token") String token, HttpServletResponse response) throws IOException {
-        String result = securityService.validatePasswordResetToken(token);
-        if (result == null) {
-            // TODO: Implement localization
-            String message = "invalid token";
-            response.sendRedirect("http://localhost:5173/login");
-        } else {
+        try {
+            securityService.validatePasswordResetToken(token);
+            // will throw if token is invalid or expired. handle in catch block.
             model.addAttribute("token", token);
             response.sendRedirect("http://localhost:5173/login/updatePassword?token=" + token);
+        } catch (TokenExpiredException | TokenNotFoundException tokenException) {
+            System.out.println(tokenException.getMessage());
+            response.sendRedirect("http://localhost:5173/login");
         }
     }
 

@@ -1,6 +1,8 @@
 <script lang="ts">
     import {onMount} from 'svelte';
-    import {type SavePasswordRequest, UserControllerApi} from "../../../api_src"; // Import the generated API
+    import {goto} from "$app/navigation"; // Import the generated API
+    import {type SavePasswordRequest, UserControllerApi} from "../../../api_src";
+    import {CheckCircle, ExclamationTriangle, Icon} from "svelte-hero-icons";
 
     let token = '';
     let newPassword = '';
@@ -34,19 +36,18 @@
             }
         };
 
-        // Create a new UserControllerApi
-        const userControllerApi = new UserControllerApi();
-
         // Send the request
-        userControllerApi.savePassword(savePasswordRequest)
+        new UserControllerApi().savePassword(savePasswordRequest)
             .then(response => {
                 console.log("sent, received:" + response);
                 successMessage = 'Your password has been successfully reset.';
                 errorMessage = ''; // Clear any previous error message
+                goto('/login');
             })
             .catch(error => {
                 console.error("Error during password reset:", error);
                 errorMessage = 'An error occurred. Please try again.';
+                newPassword = confirmPassword = ''; // Clear the password fields
             });
     };
 </script>
@@ -56,11 +57,23 @@
         <h2 class="text-2xl font-bold text-center mb-6">Reset Your Password</h2>
 
         {#if errorMessage}
-            <div class="bg-red-500 text-white p-2 mb-4 rounded">{errorMessage}</div>
+            <div class="flex items-center p-2 mt-4 text-sm text-red-800 rounded-lg bg-red-50"
+                 role="alert">
+                <Icon src={ExclamationTriangle} class="mr-3 w-12 h-12"/>
+                <div>
+                    {errorMessage}
+                </div>
+            </div>
         {/if}
 
         {#if successMessage}
-            <div class="bg-green-500 text-white p-2 mb-4 rounded">{successMessage}</div>
+            <div class="flex items-center p-2 mt-4 text-sm text-green-800 rounded-lg bg-green-50"
+                 role="alert">
+                <Icon src={CheckCircle} class="mr-3 w-12 h-12"/>
+                <div>
+                    {successMessage}
+                </div>
+            </div>
         {/if}
 
         <form on:submit|preventDefault={handleResetPassword} class="space-y-4">

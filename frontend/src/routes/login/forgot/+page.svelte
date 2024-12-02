@@ -1,44 +1,26 @@
 <script lang="ts">
     import {type ResetPasswordRequest, UserControllerApi} from "../../../api_src"; // Import the generated API
+    import {CheckCircle, ExclamationTriangle, Icon} from "svelte-hero-icons";
+
     let email = ''; // Bind the email input value
-    const serverContext = "http://localhost:8080/"; // Replace with your actual server context
+    let requestSuccessMsg: string | null = null;
+    let requestErrorMsg: string | null = null;
 
     async function handleSubmit() {
-        try {
+        // create new ResetPasswordRequest
+        const resetPasswordRequest: ResetPasswordRequest = {
+            email: email
+        };
 
-            // create new ResetPasswordRequest
-            const resetPasswordRequest: ResetPasswordRequest = {
-                email: email
-            };
-
-            // create new UserControllerApi
-            const userControllerApi = new UserControllerApi();
-
-            // send the request
-            const response = await userControllerApi.resetPassword(resetPasswordRequest);
-            console.log("sent, received:" + response);
-
-
-            // const response = await fetch(`${serverContext}user/resetPassword`, {
-            //     method: 'POST',
-            //     headers: {'Content-Type': 'application/json'},
-            //     body: JSON.stringify({email})
-            // });
-
-            // if (response.ok) {
-            //     const data = await response.json();
-            //     window.location.href = `${serverContext}login?message=${data.message}`;
-            // } else {
-            //     const errorData = await response.json();
-            //     if (errorData.error.includes("MailError")) {
-            //         window.location.href = `${serverContext}emailError.html`;
-            //     } else {
-            //         window.location.href = `${serverContext}login?message=${errorData.message}`;
-            //     }
-            // }
-        } catch (error) {
-            console.error("Error during password reset:", error);
-        }
+        new UserControllerApi().resetPassword(resetPasswordRequest)
+            .then(response => {
+                console.log("sent, received:" + response);
+                requestSuccessMsg = response;
+            })
+            .catch(error => {
+                console.error("Error during password reset:", error);
+                requestErrorMsg = "An error occurred. Please try again.";
+            });
     }
 </script>
 
@@ -73,6 +55,25 @@
                 <a href="/login" class="text-sm text-indigo-600 hover:text-indigo-800">Remember your password? Log
                     in</a>
             </div>
+
+            {#if requestSuccessMsg}
+                <div class="flex items-center p-2 mt-4 text-sm text-green-800 rounded-lg bg-green-50"
+                     role="alert">
+                    <Icon src={CheckCircle} class="mr-3 w-12 h-12"/>
+                    <div>
+                        {requestSuccessMsg}
+                    </div>
+                </div>
+            {/if}
+            {#if requestErrorMsg}
+                <div class="flex items-center p-2 mt-4 text-sm text-red-800 rounded-lg bg-red-50"
+                     role="alert">
+                    <Icon src={ExclamationTriangle} class="mr-3 w-12 h-12"/>
+                    <div>
+                        {requestErrorMsg}
+                    </div>
+                </div>
+            {/if}
         </form>
     </div>
 </div>

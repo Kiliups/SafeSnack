@@ -41,7 +41,7 @@ public class MailService {
         email.setSubject(subject);
         email.setText(message);
         email.setTo(emailAddress);
-        email.setFrom("noreply@safesnack.de");
+        email.setFrom("safeSnack@trial-pr9084z70oxgw63d.mlsender.net");
         return email;
     }
 

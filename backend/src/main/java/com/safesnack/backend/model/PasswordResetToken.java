@@ -13,12 +13,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class PasswordResetToken {
 
-    private static final int EXPIRATION = 60 * 24;
+    private static final int EXPIRATION_MIN = 10;
 
     public PasswordResetToken(String token, UserPrincipal user) {
         this.token = token;
         this.user = user;
-        this.expiryDate = new Date(System.currentTimeMillis() + EXPIRATION * 60 * 1000);
+        this.expiryDate = new Date(System.currentTimeMillis() + EXPIRATION_MIN * 60 * 1000);
     }
 
     @Id
