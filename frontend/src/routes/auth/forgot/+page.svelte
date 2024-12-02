@@ -36,7 +36,7 @@
                         id="email"
                         type="email"
                         bind:value={email}
-                        placeholder="Enter your email"
+                        placeholder="someone@example.com"
                         class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500"
                         required
                 />
@@ -52,7 +52,7 @@
             </div>
 
             <div class="mt-4 text-center">
-                <a href="/login" class="text-sm text-indigo-600 hover:text-indigo-800">Remember your password? Log
+                <a href="/auth/login" class="text-sm text-indigo-600 hover:text-indigo-800">Remember your password? Log
                     in</a>
             </div>
 

@@ -25,6 +25,7 @@ public class MailService {
     /// @return a SimpleMailMessage object containing the reset password email
     public SimpleMailMessage constructResetTokenEmail(String contextPath, String token, String userEmail) {
         String url = contextPath + "/user/changePassword?token=" + token;
+        System.out.println("Token reset URL: " + url);
         // TODO: Implement localization
         String message = "Use the link below to reset your password.";
         return constructEmail(userEmail, "Reset Password", message + " \r\n" + url);
