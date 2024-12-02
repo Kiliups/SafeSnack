@@ -1,39 +1,33 @@
 <script lang="ts">
-    import {goto} from '$app/navigation';
-    import {setAuthStore} from "../../api_adapter/apiAdapter";
+    import {enhance} from "$app/forms";
+    import type {SubmitFunction} from "@sveltejs/kit";
+    import {goto} from "$app/navigation";
 
     let username = '';
     let password = '';
-    let errorMessage = '';
+    let errorMessage: string | undefined = '';
 
-    // Handle login form submission
-    async function handleSubmit(event: SubmitEvent) {
-        event.preventDefault();
-        errorMessage = '';
-
-        try {
-            const response = await fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({username, password}),
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                await setAuthStore();
-                await goto('/user/hello');
-            } else {
-                errorMessage = response.status === 401 ? (await response.text()) || 'Username or password is wrong. Please try again.' : 'An unexpected error occurred.';
-                password = ''; // Clear the password field
-            }
-        } catch (err) {
-            errorMessage = 'An error occurred. Please try again.';
-            password = ''; // Clear the password field
-            console.error(err);
+    const handleSubmit: SubmitFunction = ({cancel}) => {
+        // Optional: client-side validation
+        if (!username || !password) {
+            cancel();
+            return;
         }
-    }
+
+        return async ({result, update}) => {
+            console.log("result", result);
+            // Handle different result types
+            if (result.type === 'success') {
+                await update();
+                await goto("/user/hello");
+            } else if (result.type === 'failure') {
+                // Handle login errors
+                errorMessage = result.data?.message ?? 'An unexpected error occurred';
+                console.error(result.data);
+            }
+        };
+    };
+
 </script>
 
 <style>
@@ -50,11 +44,12 @@
         <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Login</h2>
 
         <!-- Login form -->
-        <form on:submit|preventDefault={handleSubmit} class="space-y-6">
+        <form method="POST" action="?/login" use:enhance={handleSubmit} class="space-y-6">
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email or Username</label>
                 <input
                         id="email"
+                        name="username"
                         type="text"
                         bind:value={username}
                         class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -67,6 +62,7 @@
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input
                         id="password"
+                        name="password"
                         type="password"
                         bind:value={password}
                         class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
