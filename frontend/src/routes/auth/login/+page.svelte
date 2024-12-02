@@ -23,6 +23,7 @@
             } else if (result.type === 'failure') {
                 // Handle login errors
                 errorMessage = result.data?.message ?? 'An unexpected error occurred';
+                password = '';
                 console.error(result.data);
             }
         };

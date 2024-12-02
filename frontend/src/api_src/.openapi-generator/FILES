@@ -3,6 +3,7 @@ apis/UserControllerApi.ts
 apis/index.ts
 index.ts
 models/Authority.ts
+models/PasswordResetContainer.ts
 models/Restaurant.ts
 models/RestaurantRating.ts
 models/UserContainer.ts

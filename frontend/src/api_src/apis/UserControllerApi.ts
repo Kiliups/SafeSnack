@@ -15,15 +15,30 @@
 
 import * as runtime from '../runtime';
 import type {
+  PasswordResetContainer,
   UserContainer,
   UserMeta,
 } from '../models/index';
 import {
+    PasswordResetContainerFromJSON,
+    PasswordResetContainerToJSON,
     UserContainerFromJSON,
     UserContainerToJSON,
     UserMetaFromJSON,
     UserMetaToJSON,
 } from '../models/index';
+
+export interface ResetPasswordRequest {
+    email: string;
+}
+
+export interface SavePasswordRequest {
+    passwordResetContainer: PasswordResetContainer;
+}
+
+export interface ShowChangePasswordPageRequest {
+    token: string;
+}
 
 export interface UpdateUserRequest {
     userMeta: UserMeta;
@@ -56,6 +71,117 @@ export class UserControllerApi extends runtime.BaseAPI {
     async getUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserContainer> {
         const response = await this.getUserRaw(initOverrides);
         return await response.value();
+    }
+
+    /**
+     */
+    async resetPasswordRaw(requestParameters: ResetPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['email'] == null) {
+            throw new runtime.RequiredError(
+                'email',
+                'Required parameter "email" was null or undefined when calling resetPassword().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['email'] != null) {
+            queryParameters['email'] = requestParameters['email'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/user/resetPassword`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async resetPassword(requestParameters: ResetPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.resetPasswordRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async savePasswordRaw(requestParameters: SavePasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['passwordResetContainer'] == null) {
+            throw new runtime.RequiredError(
+                'passwordResetContainer',
+                'Required parameter "passwordResetContainer" was null or undefined when calling savePassword().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/user/savePassword`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PasswordResetContainerToJSON(requestParameters['passwordResetContainer']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async savePassword(requestParameters: SavePasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.savePasswordRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async showChangePasswordPageRaw(requestParameters: ShowChangePasswordPageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['token'] == null) {
+            throw new runtime.RequiredError(
+                'token',
+                'Required parameter "token" was null or undefined when calling showChangePasswordPage().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['token'] != null) {
+            queryParameters['token'] = requestParameters['token'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/user/changePassword`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async showChangePasswordPage(requestParameters: ShowChangePasswordPageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.showChangePasswordPageRaw(requestParameters, initOverrides);
     }
 
     /**
