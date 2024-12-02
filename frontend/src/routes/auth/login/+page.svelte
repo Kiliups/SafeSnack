@@ -79,7 +79,7 @@
         </form>
 
         <div class="text-center text-sm mt-4">
-            <a href="/login/forgot" class="text-ground hover:text-accent">Forgot your password?</a>
+            <a href="/auth/forgot" class="text-ground hover:text-accent">Forgot your password?</a>
         </div>
     </div>
 </div>
