@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { UserMeta } from './UserMeta';
-import {
-    UserMetaFromJSON,
-    UserMetaFromJSONTyped,
-    UserMetaToJSON,
-    UserMetaToJSONTyped,
-} from './UserMeta';
 import type { Authority } from './Authority';
 import {
     AuthorityFromJSON,
@@ -27,6 +20,13 @@ import {
     AuthorityToJSON,
     AuthorityToJSONTyped,
 } from './Authority';
+import type { UserPrincipalUserMeta } from './UserPrincipalUserMeta';
+import {
+    UserPrincipalUserMetaFromJSON,
+    UserPrincipalUserMetaFromJSONTyped,
+    UserPrincipalUserMetaToJSON,
+    UserPrincipalUserMetaToJSONTyped,
+} from './UserPrincipalUserMeta';
 
 /**
  * 
@@ -48,10 +48,10 @@ export interface UserPrincipal {
     username?: string;
     /**
      * 
-     * @type {UserMeta}
+     * @type {UserPrincipalUserMeta}
      * @memberof UserPrincipal
      */
-    userMeta?: UserMeta;
+    userMeta?: UserPrincipalUserMeta;
     /**
      * 
      * @type {Array<Authority>}
@@ -103,7 +103,7 @@ export function UserPrincipalFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'id': json['id'] == null ? undefined : json['id'],
         'username': json['username'] == null ? undefined : json['username'],
-        'userMeta': json['userMeta'] == null ? undefined : UserMetaFromJSON(json['userMeta']),
+        'userMeta': json['userMeta'] == null ? undefined : UserPrincipalUserMetaFromJSON(json['userMeta']),
         'authorities': json['authorities'] == null ? undefined : ((json['authorities'] as Array<any>).map(AuthorityFromJSON)),
         'accountNonExpired': json['accountNonExpired'] == null ? undefined : json['accountNonExpired'],
         'accountNonLocked': json['accountNonLocked'] == null ? undefined : json['accountNonLocked'],
@@ -125,7 +125,7 @@ export function UserPrincipalToJSONTyped(value?: UserPrincipal | null, ignoreDis
         
         'id': value['id'],
         'username': value['username'],
-        'userMeta': UserMetaToJSON(value['userMeta']),
+        'userMeta': UserPrincipalUserMetaToJSON(value['userMeta']),
         'authorities': value['authorities'] == null ? undefined : ((value['authorities'] as Array<any>).map(AuthorityToJSON)),
         'accountNonExpired': value['accountNonExpired'],
         'accountNonLocked': value['accountNonLocked'],

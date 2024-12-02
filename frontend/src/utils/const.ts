@@ -6,3 +6,12 @@ export const apiConfig = (jsessionid: string) =>
 			Cookie: `JSESSIONID=${jsessionid}`
 		}
 	});
+
+export const USERNAME = 'username';
+export const PASSWORD = 'password';
+export const NAME = 'name';
+export const STREET = 'street';
+export const CITY = 'city';
+export const ZIP = 'zip';
+export const DESCRIPTION = 'description';
+export const EMAIL = 'email';

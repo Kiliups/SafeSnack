@@ -18,6 +18,8 @@ import type {
   PasswordResetContainer,
   UserContainer,
   UserMeta,
+  UserMetaBase,
+  UserPrincipal,
 } from '../models/index';
 import {
     PasswordResetContainerFromJSON,
@@ -26,6 +28,10 @@ import {
     UserContainerToJSON,
     UserMetaFromJSON,
     UserMetaToJSON,
+    UserMetaBaseFromJSON,
+    UserMetaBaseToJSON,
+    UserPrincipalFromJSON,
+    UserPrincipalToJSON,
 } from '../models/index';
 
 export interface ResetPasswordRequest {
@@ -38,6 +44,11 @@ export interface SavePasswordRequest {
 
 export interface ShowChangePasswordPageRequest {
     token: string;
+}
+
+export interface SignUpRequest {
+    password: string;
+    userPrincipal: UserPrincipal;
 }
 
 export interface UpdateUserRequest {
@@ -182,6 +193,51 @@ export class UserControllerApi extends runtime.BaseAPI {
      */
     async showChangePasswordPage(requestParameters: ShowChangePasswordPageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.showChangePasswordPageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async signUpRaw(requestParameters: SignUpRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['password'] == null) {
+            throw new runtime.RequiredError(
+                'password',
+                'Required parameter "password" was null or undefined when calling signUp().'
+            );
+        }
+
+        if (requestParameters['userPrincipal'] == null) {
+            throw new runtime.RequiredError(
+                'userPrincipal',
+                'Required parameter "userPrincipal" was null or undefined when calling signUp().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/signup/{password}`.replace(`{${"password"}}`, encodeURIComponent(String(requestParameters['password']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserPrincipalToJSON(requestParameters['userPrincipal']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async signUp(requestParameters: SignUpRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.signUpRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

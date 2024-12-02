@@ -1,8 +1,9 @@
 package com.safesnack.backend.model;
 
+import com.safesnack.backend.model.absctractModel.AbstractIdEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.*;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "authorities")
@@ -11,11 +12,7 @@ import org.springframework.security.core.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Authority implements GrantedAuthority {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Authority extends AbstractIdEntity implements GrantedAuthority {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

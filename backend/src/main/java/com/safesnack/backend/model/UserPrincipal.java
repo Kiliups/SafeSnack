@@ -3,7 +3,10 @@ package com.safesnack.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
@@ -14,14 +17,13 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserPrincipal implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -29,7 +31,7 @@ public class UserPrincipal implements UserDetails {
     private String password;
 
     @OneToOne(cascade = CascadeType.PERSIST, optional = false)
-    private UserMeta userMeta;
+    private UserMetaBase userMeta;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority_join_table",
@@ -49,6 +51,13 @@ public class UserPrincipal implements UserDetails {
         this.password = password;
         this.authorities = authorities;
         this.userMeta = userMeta;
+        accountNonExpired = true;
+        accountNonLocked = true;
+        credentialsNonExpired = true;
+        enabled = true;
+    }
+
+    public UserPrincipal() {
         accountNonExpired = true;
         accountNonLocked = true;
         credentialsNonExpired = true;

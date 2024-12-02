@@ -78,8 +78,9 @@
             </div>
         </form>
 
-        <div class="text-center text-sm mt-4">
+        <div class="flex flex-col gap-2 text-center text-sm mt-4">
             <a href="/auth/forgot" class="text-ground hover:text-accent">Forgot your password?</a>
+            <a href="/auth/signup" class="text-ground hover:text-accent">Don't have an account? Sign Up!</a>
         </div>
     </div>
 </div>

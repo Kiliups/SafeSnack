@@ -150,6 +150,9 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <configOptions>
+                                <supportsInheritance>true</supportsInheritance>
+                            </configOptions>
                             <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
                             <output>${project.basedir}/../frontend/src/api_src</output>
                             <generatorName>typescript-fetch</generatorName>

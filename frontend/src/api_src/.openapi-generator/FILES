@@ -2,12 +2,16 @@ apis/RestaurantRatingControllerApi.ts
 apis/UserControllerApi.ts
 apis/index.ts
 index.ts
+models/Address.ts
 models/Authority.ts
+models/Menu.ts
 models/PasswordResetContainer.ts
 models/Restaurant.ts
 models/RestaurantRating.ts
 models/UserContainer.ts
 models/UserMeta.ts
+models/UserMetaBase.ts
 models/UserPrincipal.ts
+models/UserPrincipalUserMeta.ts
 models/index.ts
 runtime.ts

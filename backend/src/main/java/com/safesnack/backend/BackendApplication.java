@@ -46,14 +46,13 @@ public class BackendApplication implements CommandLineRunner {
                     userAuth, adminAuth));
         }
 
-        UserMeta admin = UserMeta.builder()
-                .name("admin")
-                .email("admin@local.de")
-                .build();
-        UserMeta basicUser = UserMeta.builder()
-                .name("basic user")
-                .email("user@local.de")
-                .build();
+        UserMeta admin = new UserMeta();
+        admin.setName("admin");
+        admin.setEmail("admin@local.de");
+
+        UserMeta basicUser = new UserMeta();
+        basicUser.setName("basic user");
+        basicUser.setEmail("user@local.de");
 
         if (userPrincipalRepo.findAll().isEmpty()) {
             userPrincipalRepo.saveAll(

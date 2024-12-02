@@ -13,24 +13,52 @@
  */
 
 import { mapValues } from '../runtime';
+import type { UserMetaBase } from './UserMetaBase';
+import {
+    UserMetaBaseFromJSON,
+    UserMetaBaseFromJSONTyped,
+    UserMetaBaseToJSON,
+    UserMetaBaseToJSONTyped,
+} from './UserMetaBase';
+import type { Address } from './Address';
+import {
+    AddressFromJSON,
+    AddressFromJSONTyped,
+    AddressToJSON,
+    AddressToJSONTyped,
+} from './Address';
+import type { Menu } from './Menu';
+import {
+    MenuFromJSON,
+    MenuFromJSONTyped,
+    MenuToJSON,
+    MenuToJSONTyped,
+} from './Menu';
+
 /**
  * 
  * @export
  * @interface Restaurant
  */
-export interface Restaurant {
+export interface Restaurant extends UserMetaBase {
     /**
      * 
-     * @type {number}
+     * @type {Address}
      * @memberof Restaurant
      */
-    id?: number;
+    address?: Address;
     /**
      * 
      * @type {string}
      * @memberof Restaurant
      */
-    name?: string;
+    description?: string;
+    /**
+     * 
+     * @type {Menu}
+     * @memberof Restaurant
+     */
+    menu?: Menu;
 }
 
 /**
@@ -49,9 +77,10 @@ export function RestaurantFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         return json;
     }
     return {
-        
-        'id': json['id'] == null ? undefined : json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
+        ...UserMetaBaseFromJSONTyped(json, true),
+        'address': json['address'] == null ? undefined : AddressFromJSON(json['address']),
+        'description': json['description'] == null ? undefined : json['description'],
+        'menu': json['menu'] == null ? undefined : MenuFromJSON(json['menu']),
     };
 }
 
@@ -65,9 +94,10 @@ export function RestaurantToJSONTyped(value?: Restaurant | null, ignoreDiscrimin
     }
 
     return {
-        
-        'id': value['id'],
-        'name': value['name'],
+        ...UserMetaBaseToJSONTyped(value, true),
+        'address': AddressToJSON(value['address']),
+        'description': value['description'],
+        'menu': MenuToJSON(value['menu']),
     };
 }
 

@@ -13,30 +13,20 @@
  */
 
 import { mapValues } from '../runtime';
+import type { UserMetaBase } from './UserMetaBase';
+import {
+    UserMetaBaseFromJSON,
+    UserMetaBaseFromJSONTyped,
+    UserMetaBaseToJSON,
+    UserMetaBaseToJSONTyped,
+} from './UserMetaBase';
+
 /**
  * 
  * @export
  * @interface UserMeta
  */
-export interface UserMeta {
-    /**
-     * 
-     * @type {number}
-     * @memberof UserMeta
-     */
-    id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserMeta
-     */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserMeta
-     */
-    email?: string;
+export interface UserMeta extends UserMetaBase {
 }
 
 /**
@@ -51,15 +41,7 @@ export function UserMetaFromJSON(json: any): UserMeta {
 }
 
 export function UserMetaFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserMeta {
-    if (json == null) {
-        return json;
-    }
-    return {
-        
-        'id': json['id'] == null ? undefined : json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
-        'email': json['email'] == null ? undefined : json['email'],
-    };
+    return json;
 }
 
 export function UserMetaToJSON(json: any): UserMeta {
@@ -67,15 +49,6 @@ export function UserMetaToJSON(json: any): UserMeta {
 }
 
 export function UserMetaToJSONTyped(value?: UserMeta | null, ignoreDiscriminator: boolean = false): any {
-    if (value == null) {
-        return value;
-    }
-
-    return {
-        
-        'id': value['id'],
-        'name': value['name'],
-        'email': value['email'],
-    };
+    return value;
 }
 

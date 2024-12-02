@@ -1,19 +1,18 @@
 package com.safesnack.backend.model;
 
-import jakarta.persistence.*;
+import com.safesnack.backend.model.absctractModel.AbstractNamedIdEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "allergen")
-public class Allergen {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "name", nullable = false)
-    private String name;
+public class Allergen extends AbstractNamedIdEntity {
 
     @ManyToOne
     @JoinColumn(name = "allergy_id")
