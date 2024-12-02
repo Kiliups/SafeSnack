@@ -15,7 +15,6 @@
         }
 
         return async ({result, update}) => {
-            console.log("result", result);
             // Handle different result types
             if (result.type === 'success') {
                 await update();
@@ -31,42 +30,34 @@
 
 </script>
 
-<style>
-    .error-message {
-        color: red;
-        font-size: 0.875rem;
-        margin-top: 0.5rem;
-    }
-</style>
 
-
-<div class="min-h-screen bg-gray-100 flex items-center justify-center py-12">
-    <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
-        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Login</h2>
+<div class="min-h-screen bg-ground flex items-center justify-center py-12">
+    <div class="bg-primary text-ground p-8 rounded-lg shadow-lg max-w-sm w-full">
+        <h2 class="text-3xl font-semibold text-center mb-6">Login</h2>
 
         <!-- Login form -->
         <form method="POST" action="?/login" use:enhance={handleSubmit} class="space-y-6">
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email or Username</label>
+                <label for="email" class="block text-sm font-medium">Email or Username</label>
                 <input
                         id="email"
                         name="username"
                         type="text"
                         bind:value={username}
-                        class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        class="mt-2 p-3 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
                         placeholder="Enter your email or username"
                         required
                 />
             </div>
 
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <label for="password" class="block text-sm font-medium ">Password</label>
                 <input
                         id="password"
                         name="password"
                         type="password"
                         bind:value={password}
-                        class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        class="mt-2 p-3 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
                         placeholder="Enter your password"
                         required
                 />
@@ -74,13 +65,13 @@
 
             <!-- Error message display -->
             {#if errorMessage}
-                <div class="error-message">{errorMessage}</div>
+                <div class="text-error">{errorMessage}</div>
             {/if}
 
             <div class="flex justify-center">
                 <button
                         type="submit"
-                        class="w-full py-3 px-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200"
+                        class="w-full py-3 px-6 bg-accent hover:bg-indigo-300 text-ground rounded-md "
                 >
                     Login
                 </button>
@@ -88,7 +79,7 @@
         </form>
 
         <div class="text-center text-sm mt-4">
-            <a href="/login/forgot" class="text-indigo-600 hover:text-indigo-800">Forgot your password?</a>
+            <a href="/login/forgot" class="text-ground hover:text-accent">Forgot your password?</a>
         </div>
     </div>
 </div>
