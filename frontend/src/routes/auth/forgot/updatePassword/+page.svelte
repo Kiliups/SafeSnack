@@ -1,7 +1,7 @@
 <script lang="ts">
     import {onMount} from 'svelte';
     import {goto} from "$app/navigation"; // Import the generated API
-    import {type SavePasswordRequest, UserControllerApi} from "../../../api_src";
+    import {type SavePasswordRequest, UserControllerApi} from "../../../../api_src";
     import {CheckCircle, ExclamationTriangle, Icon} from "svelte-hero-icons";
 
     let token = '';

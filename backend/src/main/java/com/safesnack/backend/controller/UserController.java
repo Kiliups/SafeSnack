@@ -28,6 +28,7 @@ import java.util.Optional;
 
 @RestController
 public class UserController {
+    private final String FRONTEND_URL = "http://localhost:5173";
 
     final CustomUserService userDetailsService;
     final IUserPrincipalRepo userPrincipalRepo;
@@ -89,10 +90,10 @@ public class UserController {
             securityService.validatePasswordResetToken(token);
             // will throw if token is invalid or expired. handle in catch block.
             model.addAttribute("token", token);
-            response.sendRedirect("http://localhost:5173/login/updatePassword?token=" + token);
+            response.sendRedirect(FRONTEND_URL + "/auth/forgot/updatePassword?token=" + token);
         } catch (TokenExpiredException | TokenNotFoundException tokenException) {
             System.out.println(tokenException.getMessage());
-            response.sendRedirect("http://localhost:5173/login");
+            response.sendRedirect(FRONTEND_URL + "/auth/login");
         }
     }
 
