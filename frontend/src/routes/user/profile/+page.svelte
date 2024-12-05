@@ -4,8 +4,7 @@
     import {authStore} from "../../../stores/auth";
 
     function handleEditProfile() {
-        // TODO: Implement edit profile functionality
-        alert("Edit Profile clicked!");
+        goto('/user/profile/edit');
     }
 
     function handleImgClick() {

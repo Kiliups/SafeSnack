@@ -163,6 +163,30 @@ export class AllergyControllerApi extends runtime.BaseAPI {
 
     /**
      */
+    async getAllAllergiesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Allergy>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/allAllergies`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AllergyFromJSON));
+    }
+
+    /**
+     */
+    async getAllAllergies(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Allergy>> {
+        const response = await this.getAllAllergiesRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async getAllergyRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Allergy>>> {
         const queryParameters: any = {};
 

@@ -26,6 +26,11 @@ public class AllergyController {
         this.allergyRepo = allergyRepo;
     }
 
+    @GetMapping("/allAllergies")
+    public ResponseEntity<List<Allergy>> getAllAllergies() {
+        return ResponseEntity.ok(allergyRepo.findAll());
+    }
+
     @GetMapping("/allergy")
     public ResponseEntity<List<Allergy>> getAllergy(Authentication authentication) {
         UserPrincipal principal =
