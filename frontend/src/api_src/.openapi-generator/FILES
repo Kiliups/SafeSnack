@@ -1,8 +1,10 @@
+apis/AllergyControllerApi.ts
 apis/RestaurantRatingControllerApi.ts
 apis/UserControllerApi.ts
 apis/index.ts
 index.ts
 models/Address.ts
+models/Allergy.ts
 models/Authority.ts
 models/Menu.ts
 models/PasswordResetContainer.ts

@@ -21,91 +21,91 @@ import {type UserMeta, UserMetaFromJSONTyped, UserMetaToJSONTyped} from './UserM
  * @interface UserMetaBase
  */
 export interface UserMetaBase {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof UserMetaBase
-	 */
-	id?: number;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof UserMetaBase
-	 */
-	name?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof UserMetaBase
-	 */
-	email?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof UserMetaBase
-	 */
-	type: string;
+    /**
+     *
+     * @type {number}
+     * @memberof UserMetaBase
+     */
+    id?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof UserMetaBase
+     */
+    name?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof UserMetaBase
+     */
+    email?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof UserMetaBase
+     */
+    type: string;
 }
 
 /**
  * Check if a given object implements the UserMetaBase interface.
  */
 export function instanceOfUserMetaBase(value: object): value is UserMetaBase {
-	if (!('type' in value) || value['type'] === undefined) return false;
-	return true;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function UserMetaBaseFromJSON(json: any): UserMetaBase {
-	return UserMetaBaseFromJSONTyped(json, false);
+    return UserMetaBaseFromJSONTyped(json, false);
 }
 
 export function UserMetaBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserMetaBase {
-	if (json == null) {
-		return json;
-	}
-	if (!ignoreDiscriminator) {
-		if (json['type'] === 'Restaurant') {
-			return RestaurantFromJSONTyped(json, ignoreDiscriminator);
-		}
-		if (json['type'] === 'UserMeta') {
-			return UserMetaFromJSONTyped(json, ignoreDiscriminator);
-		}
-	}
-	return {
-		id: json['id'] == null ? undefined : json['id'],
-		name: json['name'] == null ? undefined : json['name'],
-		email: json['email'] == null ? undefined : json['email'],
-		type: json['type']
-	};
+    if (json == null) {
+        return json;
+    }
+    if (!ignoreDiscriminator) {
+        if (json['type'] === 'Restaurant') {
+            return RestaurantFromJSONTyped(json, ignoreDiscriminator);
+        }
+        if (json['type'] === 'UserMeta') {
+            return UserMetaFromJSONTyped(json, ignoreDiscriminator);
+        }
+    }
+    return {
+
+        'id': json['id'] == null ? undefined : json['id'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'type': json['type'],
+    };
 }
 
 export function UserMetaBaseToJSON(json: any): UserMetaBase {
-	return UserMetaBaseToJSONTyped(json, false);
+    return UserMetaBaseToJSONTyped(json, false);
 }
 
-export function UserMetaBaseToJSONTyped(
-	value?: UserMetaBase | null,
-	ignoreDiscriminator: boolean = false
-): any {
-	if (value == null) {
-		return value;
-	}
+export function UserMetaBaseToJSONTyped(value?: UserMetaBase | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
+    }
 
-	if (!ignoreDiscriminator) {
-		switch (value['type']) {
-			case 'Restaurant':
-				return RestaurantToJSONTyped(value as Restaurant, ignoreDiscriminator);
-			case 'UserMeta':
-				return UserMetaToJSONTyped(value as UserMeta, ignoreDiscriminator);
-			default:
-				throw new Error(`No variant of UserMetaBase exists with 'type=${value['type']}'`);
-		}
-	}
+    if (!ignoreDiscriminator) {
+        switch (value['type']) {
+            case 'Restaurant':
+                return RestaurantToJSONTyped(value as Restaurant, ignoreDiscriminator);
+            case 'UserMeta':
+                return UserMetaToJSONTyped(value as UserMeta, ignoreDiscriminator);
+            default:
+                throw new Error(`No variant of UserMetaBase exists with 'type=${value['type']}'`);
+        }
+    }
 
-	return {
-		id: value['id'],
-		name: value['name'],
-		email: value['email'],
-		type: value['type']
-	};
+    return {
+
+        'id': value['id'],
+        'name': value['name'],
+        'email': value['email'],
+        'type': value['type'],
+    };
 }
+

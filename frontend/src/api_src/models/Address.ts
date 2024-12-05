@@ -13,14 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { Restaurant } from './Restaurant';
-import {
-    RestaurantFromJSON,
-    RestaurantFromJSONTyped,
-    RestaurantToJSON,
-    RestaurantToJSONTyped,
-} from './Restaurant';
-
 /**
  * 
  * @export
@@ -33,12 +25,6 @@ export interface Address {
      * @memberof Address
      */
     id?: number;
-    /**
-     * 
-     * @type {Restaurant}
-     * @memberof Address
-     */
-    restaurant?: Restaurant;
     /**
      * 
      * @type {string}
@@ -77,7 +63,6 @@ export function AddressFromJSONTyped(json: any, ignoreDiscriminator: boolean): A
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
-        'restaurant': json['restaurant'] == null ? undefined : RestaurantFromJSON(json['restaurant']),
         'street': json['street'] == null ? undefined : json['street'],
         'city': json['city'] == null ? undefined : json['city'],
         'zip': json['zip'] == null ? undefined : json['zip'],
@@ -96,7 +81,6 @@ export function AddressToJSONTyped(value?: Address | null, ignoreDiscriminator: 
     return {
         
         'id': value['id'],
-        'restaurant': RestaurantToJSON(value['restaurant']),
         'street': value['street'],
         'city': value['city'],
         'zip': value['zip'],

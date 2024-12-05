@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { Allergy } from './Allergy';
+import {
+    AllergyFromJSON,
+    AllergyFromJSONTyped,
+    AllergyToJSON,
+    AllergyToJSONTyped,
+} from './Allergy';
 import type { UserMetaBase } from './UserMetaBase';
 import {
     UserMetaBaseFromJSON,
@@ -27,6 +34,12 @@ import {
  * @interface UserMeta
  */
 export interface UserMeta extends UserMetaBase {
+    /**
+     * 
+     * @type {Array<Allergy>}
+     * @memberof UserMeta
+     */
+    allergies?: Array<Allergy>;
 }
 
 /**
@@ -41,7 +54,13 @@ export function UserMetaFromJSON(json: any): UserMeta {
 }
 
 export function UserMetaFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserMeta {
-    return json;
+    if (json == null) {
+        return json;
+    }
+    return {
+        ...UserMetaBaseFromJSONTyped(json, true),
+        'allergies': json['allergies'] == null ? undefined : ((json['allergies'] as Array<any>).map(AllergyFromJSON)),
+    };
 }
 
 export function UserMetaToJSON(json: any): UserMeta {
@@ -49,6 +68,13 @@ export function UserMetaToJSON(json: any): UserMeta {
 }
 
 export function UserMetaToJSONTyped(value?: UserMeta | null, ignoreDiscriminator: boolean = false): any {
-    return value;
+    if (value == null) {
+        return value;
+    }
+
+    return {
+        ...UserMetaBaseToJSONTyped(value, true),
+        'allergies': value['allergies'] == null ? undefined : ((value['allergies'] as Array<any>).map(AllergyToJSON)),
+    };
 }
 

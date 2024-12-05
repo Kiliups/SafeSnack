@@ -18,7 +18,6 @@ import type {
   PasswordResetContainer,
   UserContainer,
   UserMeta,
-  UserMetaBase,
   UserPrincipal,
 } from '../models/index';
 import {
@@ -28,8 +27,6 @@ import {
     UserContainerToJSON,
     UserMetaFromJSON,
     UserMetaToJSON,
-    UserMetaBaseFromJSON,
-    UserMetaBaseToJSON,
     UserPrincipalFromJSON,
     UserPrincipalToJSON,
 } from '../models/index';
