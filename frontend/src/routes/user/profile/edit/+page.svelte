@@ -1,5 +1,6 @@
 <script lang="ts">
     import {authStore} from "../../../../stores/auth";
+    import {onMount} from "svelte";
     import {
         type Allergy,
         AllergyControllerApi,
@@ -23,9 +24,11 @@
     let passwordErrorMsg = '';
     let showPopup = false;
 
-    $: {
+    onMount(() => {
         refreshAllergies();
+    });
 
+    $: {
         email = $authStore?.user?.email || '';
         name = $authStore?.user?.name || '';
     }

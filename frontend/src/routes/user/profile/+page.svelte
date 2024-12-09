@@ -22,7 +22,7 @@
                     class="p-0 border-none focus:outline-none"
             >
                 <img
-                        src="../../../../img/pepe.png"
+                        src="/pepe.png"
                         alt="User Avatar"
                         class="w-32 h-32 rounded-full border-4 border-indigo-600"
                 />

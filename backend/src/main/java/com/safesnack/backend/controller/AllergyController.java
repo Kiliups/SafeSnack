@@ -161,13 +161,13 @@ public class AllergyController {
         Allergy allergyValue = allergy.get();
 
         for (Allergen allergen : allergens) {
-            allergyValue.getAllergens().add(allergen);
             allergen.setAllergy(allergyValue);
         }
+        allergyValue.setAllergens(allergens);
 
         allergyRepo.save(allergyValue);
         allergenRepo.saveAll(allergens);
-        
+
         return ResponseEntity.ok("Allergens assigned to Allergy '" + allergyValue.getName() + "'");
     }
 }
