@@ -43,34 +43,16 @@ public class AllergenController {
     // admin features
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/allergen")
-    public ResponseEntity<String> createAllergen(@RequestParam String name) {
+    public ResponseEntity<Allergen> createAllergen(@RequestParam String name) {
         Optional<Allergen> dbAllergen = allergenRepo.findByName(name);
         if (dbAllergen.isPresent()) {
-            return ResponseEntity.badRequest().body("Allergen already exists");
+            return ResponseEntity.badRequest().body(null);
         }
 
         Allergen allergen = new Allergen();
         allergen.setName(name);
         allergenRepo.save(allergen);
-        return ResponseEntity.ok("Allergen '" + name + "' created");
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/assign-allergen")
-    public ResponseEntity<String> assignAllergen(@RequestParam long allergenId, @RequestParam long allergyId) {
-        Optional<Allergen> allergen = allergenRepo.findById(allergenId);
-        Optional<Allergy> allergy = allergyRepo.findById(allergyId);
-
-        if (allergen.isEmpty() || allergy.isEmpty()) {
-            return ResponseEntity.badRequest().body("Allergen or Allergy not found");
-        }
-
-        Allergen allergenValue = allergen.get();
-        Allergy allergyValue = allergy.get();
-
-        allergyValue.getAllergens().add(allergenValue);
-        allergyRepo.save(allergyValue);
-        return ResponseEntity.ok("Allergen '" + allergenValue.getName() + "' assigned to Allergy '" + allergyValue.getName() + "'");
+        return ResponseEntity.ok(allergen);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

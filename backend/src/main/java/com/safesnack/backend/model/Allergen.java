@@ -1,5 +1,6 @@
 package com.safesnack.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.safesnack.backend.model.absctractModel.AbstractNamedIdEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,6 +16,7 @@ import lombok.EqualsAndHashCode;
 public class Allergen extends AbstractNamedIdEntity {
 
     @ManyToOne
-    @JoinColumn(name = "allergy_id")
+    @JoinColumn(name = "allergy_id", nullable = true)
+    @JsonBackReference // Prevent infinite recursion
     private Allergy allergy;
 }

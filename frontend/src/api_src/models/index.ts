@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './Address';
+export * from './Allergen';
 export * from './Allergy';
 export * from './Authority';
 export * from './Menu';

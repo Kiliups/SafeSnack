@@ -1,5 +1,6 @@
 package com.safesnack.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.safesnack.backend.model.absctractModel.AbstractNamedIdEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,8 +14,7 @@ import java.util.List;
 @Table(name = "allergy")
 public class Allergy extends AbstractNamedIdEntity {
 
-    @OneToMany(mappedBy = "allergy",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    public List<Allergen> allergens;
+    @OneToMany(mappedBy = "allergy", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference // Prevent infinite recursion
+    private List<Allergen> allergens;
 }

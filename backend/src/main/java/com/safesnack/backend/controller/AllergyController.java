@@ -1,9 +1,7 @@
 package com.safesnack.backend.controller;
 
-import com.safesnack.backend.model.Allergy;
-import com.safesnack.backend.model.Authority;
-import com.safesnack.backend.model.UserMeta;
-import com.safesnack.backend.model.UserPrincipal;
+import com.safesnack.backend.model.*;
+import com.safesnack.backend.repository.IAllergenRepository;
 import com.safesnack.backend.repository.IAllergyRepository;
 import com.safesnack.backend.service.CustomUserService;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +17,23 @@ public class AllergyController {
 
     private final CustomUserService userService;
     private final IAllergyRepository allergyRepo;
+    private final IAllergenRepository allergenRepo;
 
-    public AllergyController(CustomUserService userService, IAllergyRepository allergyRepo) {
+    public AllergyController(CustomUserService userService, IAllergyRepository allergyRepo, IAllergenRepository allergenRepo) {
         this.userService = userService;
         this.allergyRepo = allergyRepo;
+        this.allergenRepo = allergenRepo;
     }
 
     @GetMapping("/allAllergies")
     public ResponseEntity<List<Allergy>> getAllAllergies() {
-        return ResponseEntity.ok(allergyRepo.findAll());
+        try {
+            var allergies = allergyRepo.findAll();
+            return ResponseEntity.ok(allergies);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
+        }
     }
 
     @GetMapping("/allergy")
@@ -86,7 +92,7 @@ public class AllergyController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create-allergy")
-    public ResponseEntity<String> createAllergy(Authentication authentication, @RequestBody Allergy allergy) {
+    public ResponseEntity<Allergy> createAllergy(Authentication authentication, @RequestBody Allergy allergy) {
 
         // get role of user
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
@@ -95,10 +101,10 @@ public class AllergyController {
         try {
             allergyRepo.save(allergy);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
         }
         System.out.println("new Allergy added to Db: " + allergy.getName());
-        return ResponseEntity.ok("Allergy '" + allergy.getName() + "' added");
+        return ResponseEntity.ok(allergy);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -123,5 +129,45 @@ public class AllergyController {
         }
         System.out.println("updated Allergy in Db: " + allergy.getName());
         return ResponseEntity.ok("Allergy updated");
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/assign-allergen")
+    public ResponseEntity<String> assignAllergen(@RequestParam long allergyId, @RequestParam long allergenId) {
+        Optional<Allergen> allergen = allergenRepo.findById(allergenId);
+        Optional<Allergy> allergy = allergyRepo.findById(allergyId);
+
+        if (allergen.isEmpty() || allergy.isEmpty()) {
+            return ResponseEntity.badRequest().body("Allergen or Allergy not found");
+        }
+
+        Allergen allergenValue = allergen.get();
+        Allergy allergyValue = allergy.get();
+
+        allergyValue.getAllergens().add(allergenValue);
+        allergyRepo.save(allergyValue);
+        return ResponseEntity.ok("Allergen '" + allergenValue.getName() + "' assigned to Allergy '" + allergyValue.getName() + "'");
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/assign-allergens")
+    public ResponseEntity<String> assignAllergens(@RequestParam long allergyId, @RequestBody List<Allergen> allergens) {
+        Optional<Allergy> allergy = allergyRepo.findById(allergyId);
+
+        if (allergy.isEmpty()) {
+            return ResponseEntity.badRequest().body("Allergy not found");
+        }
+
+        Allergy allergyValue = allergy.get();
+
+        for (Allergen allergen : allergens) {
+            allergyValue.getAllergens().add(allergen);
+            allergen.setAllergy(allergyValue);
+        }
+
+        allergyRepo.save(allergyValue);
+        allergenRepo.saveAll(allergens);
+        
+        return ResponseEntity.ok("Allergens assigned to Allergy '" + allergyValue.getName() + "'");
     }
 }

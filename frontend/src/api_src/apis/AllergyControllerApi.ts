@@ -15,12 +15,25 @@
 
 import * as runtime from '../runtime';
 import type {
+  Allergen,
   Allergy,
 } from '../models/index';
 import {
+    AllergenFromJSON,
+    AllergenToJSON,
     AllergyFromJSON,
     AllergyToJSON,
 } from '../models/index';
+
+export interface AssignAllergenRequest {
+    allergyId: number;
+    allergenId: number;
+}
+
+export interface AssignAllergensRequest {
+    allergyId: number;
+    allergen: Array<Allergen>;
+}
 
 export interface AssignAllergyRequest {
     allergy: Allergy;
@@ -46,6 +59,105 @@ export interface UpdateAllergyRequest {
  * 
  */
 export class AllergyControllerApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async assignAllergenRaw(requestParameters: AssignAllergenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['allergyId'] == null) {
+            throw new runtime.RequiredError(
+                'allergyId',
+                'Required parameter "allergyId" was null or undefined when calling assignAllergen().'
+            );
+        }
+
+        if (requestParameters['allergenId'] == null) {
+            throw new runtime.RequiredError(
+                'allergenId',
+                'Required parameter "allergenId" was null or undefined when calling assignAllergen().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['allergyId'] != null) {
+            queryParameters['allergyId'] = requestParameters['allergyId'];
+        }
+
+        if (requestParameters['allergenId'] != null) {
+            queryParameters['allergenId'] = requestParameters['allergenId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/assign-allergen`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async assignAllergen(requestParameters: AssignAllergenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.assignAllergenRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async assignAllergensRaw(requestParameters: AssignAllergensRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['allergyId'] == null) {
+            throw new runtime.RequiredError(
+                'allergyId',
+                'Required parameter "allergyId" was null or undefined when calling assignAllergens().'
+            );
+        }
+
+        if (requestParameters['allergen'] == null) {
+            throw new runtime.RequiredError(
+                'allergen',
+                'Required parameter "allergen" was null or undefined when calling assignAllergens().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['allergyId'] != null) {
+            queryParameters['allergyId'] = requestParameters['allergyId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/assign-allergens`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['allergen']!.map(AllergenToJSON),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async assignAllergens(requestParameters: AssignAllergensRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.assignAllergensRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */
@@ -87,7 +199,7 @@ export class AllergyControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async createAllergyRaw(requestParameters: CreateAllergyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    async createAllergyRaw(requestParameters: CreateAllergyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Allergy>> {
         if (requestParameters['allergy'] == null) {
             throw new runtime.RequiredError(
                 'allergy',
@@ -109,16 +221,12 @@ export class AllergyControllerApi extends runtime.BaseAPI {
             body: AllergyToJSON(requestParameters['allergy']),
         }, initOverrides);
 
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+        return new runtime.JSONApiResponse(response, (jsonValue) => AllergyFromJSON(jsonValue));
     }
 
     /**
      */
-    async createAllergy(requestParameters: CreateAllergyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+    async createAllergy(requestParameters: CreateAllergyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Allergy> {
         const response = await this.createAllergyRaw(requestParameters, initOverrides);
         return await response.value();
     }

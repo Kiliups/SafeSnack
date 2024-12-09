@@ -1,9 +1,11 @@
+apis/AllergenControllerApi.ts
 apis/AllergyControllerApi.ts
 apis/RestaurantRatingControllerApi.ts
 apis/UserControllerApi.ts
 apis/index.ts
 index.ts
 models/Address.ts
+models/Allergen.ts
 models/Allergy.ts
 models/Authority.ts
 models/Menu.ts

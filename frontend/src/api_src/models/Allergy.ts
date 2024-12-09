@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { Allergen } from './Allergen';
+import {
+    AllergenFromJSON,
+    AllergenFromJSONTyped,
+    AllergenToJSON,
+    AllergenToJSONTyped,
+} from './Allergen';
+
 /**
  * 
  * @export
@@ -31,6 +39,12 @@ export interface Allergy {
      * @memberof Allergy
      */
     name?: string;
+    /**
+     * 
+     * @type {Array<Allergen>}
+     * @memberof Allergy
+     */
+    allergens?: Array<Allergen>;
 }
 
 /**
@@ -52,6 +66,7 @@ export function AllergyFromJSONTyped(json: any, ignoreDiscriminator: boolean): A
         
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] == null ? undefined : json['name'],
+        'allergens': json['allergens'] == null ? undefined : ((json['allergens'] as Array<any>).map(AllergenFromJSON)),
     };
 }
 
@@ -68,6 +83,7 @@ export function AllergyToJSONTyped(value?: Allergy | null, ignoreDiscriminator: 
         
         'id': value['id'],
         'name': value['name'],
+        'allergens': value['allergens'] == null ? undefined : ((value['allergens'] as Array<any>).map(AllergenToJSON)),
     };
 }
 
