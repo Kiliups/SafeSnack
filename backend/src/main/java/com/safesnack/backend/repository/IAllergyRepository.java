@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface IAllergyRepository extends JpaRepository<Allergy, Integer> {
 
     Optional<Allergy> findByName(String name);
+
+    Optional<Allergy> findById(Long id);
 }
