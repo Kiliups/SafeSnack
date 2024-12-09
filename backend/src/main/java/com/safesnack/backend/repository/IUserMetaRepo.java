@@ -12,4 +12,6 @@ public interface IUserMetaRepo extends JpaRepository<UserMeta, Long> {
     Optional<UserMeta> findUserMetaByEmail(String email);
 
     Optional<UserMeta> findUserMetaByName(String name);
+
+    Optional<UserMeta> findUserMetaById(Long id);
 }

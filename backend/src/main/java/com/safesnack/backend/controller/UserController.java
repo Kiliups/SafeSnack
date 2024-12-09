@@ -1,5 +1,6 @@
 package com.safesnack.backend.controller;
 
+import com.safesnack.backend.container.PasswordChangeContainer;
 import com.safesnack.backend.container.PasswordResetContainer;
 import com.safesnack.backend.container.UserContainer;
 import com.safesnack.backend.exceptions.TokenExpiredException;
@@ -36,16 +37,28 @@ public class UserController {
     final IUserMetaRepo userMetaRepo;
     final UserDataChangeService userDataChangeService;
     final IPasswordResetTokenRepository passwordResetTokenRepository;
-    private final MailService mailService;
-    private final SecurityService securityService;
-    private PasswordEncoder passwordEncoder;
     final IRestaurantRepo restaurantRepo;
     final IAuthorityRepo authorityRepo;
-    final IAdressRepo adressRepo;
+    final IAdressRepo addressRepo;
+
+    private final MailService mailService;
+    private final SecurityService securityService;
+
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/update-user")
-    public UserMeta updateUser(@RequestBody UserMeta userToUpdate) {
-        return userDetailsService.updateUserMeta(userToUpdate);
+    public ResponseEntity<UserMeta> updateUser(@RequestBody UserMeta userToUpdate) {
+        Optional<UserMeta> dbUserMeta = userMetaRepo.findUserMetaById(userToUpdate.getId());
+
+        if (dbUserMeta.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        UserMeta userMeta = dbUserMeta.get();
+        userMeta.setEmail(userToUpdate.getEmail());
+        userMeta.setName(userToUpdate.getName());
+        userDetailsService.updateUserMeta(userMeta);
+        return ResponseEntity.ok(userMeta);
     }
 
     @GetMapping("/current-user")
@@ -58,6 +71,19 @@ public class UserController {
         userContainer.setUser((UserMeta) principal.getUserMeta());
         userContainer.setRoles(principal.getAuthorities());
         return userContainer;
+    }
+
+    @PostMapping("/user/updatePassword")
+    public ResponseEntity<String> changeUserPassword(Authentication authentication, @RequestBody PasswordChangeContainer passwordChangeContainer) {
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+
+        if (!passwordEncoder.matches(passwordChangeContainer.getOldPassword(), principal.getPassword())) {
+            // TODO: Remove message in return to prevent attackers from knowing if the old password is correct
+            return ResponseEntity.badRequest().body("Old password is incorrect");
+        }
+
+        userDataChangeService.changeUserPassword(principal, passwordChangeContainer.getNewPassword());
+        return ResponseEntity.ok("Password changed successfully");
     }
 
     @PostMapping("/user/resetPassword")
@@ -132,7 +158,7 @@ public class UserController {
             }
             final Address address = ((Restaurant) userMeta).getAddress();
             if (address != null) {
-                ((Restaurant) userMeta).setAddress(adressRepo.save(address));
+                ((Restaurant) userMeta).setAddress(addressRepo.save(address));
             }
             saveUserPrincipal(user, password);
             restaurantRepo.save((Restaurant) userMeta);

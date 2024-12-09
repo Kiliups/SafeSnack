@@ -4,6 +4,7 @@ export * from './Address';
 export * from './Allergy';
 export * from './Authority';
 export * from './Menu';
+export * from './PasswordChangeContainer';
 export * from './PasswordResetContainer';
 export * from './Restaurant';
 export * from './RestaurantRating';

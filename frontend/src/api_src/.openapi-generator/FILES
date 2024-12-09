@@ -7,6 +7,7 @@ models/Address.ts
 models/Allergy.ts
 models/Authority.ts
 models/Menu.ts
+models/PasswordChangeContainer.ts
 models/PasswordResetContainer.ts
 models/Restaurant.ts
 models/RestaurantRating.ts

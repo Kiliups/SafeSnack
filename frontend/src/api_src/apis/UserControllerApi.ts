@@ -15,12 +15,15 @@
 
 import * as runtime from '../runtime';
 import type {
+  PasswordChangeContainer,
   PasswordResetContainer,
   UserContainer,
   UserMeta,
   UserPrincipal,
 } from '../models/index';
 import {
+    PasswordChangeContainerFromJSON,
+    PasswordChangeContainerToJSON,
     PasswordResetContainerFromJSON,
     PasswordResetContainerToJSON,
     UserContainerFromJSON,
@@ -30,6 +33,10 @@ import {
     UserPrincipalFromJSON,
     UserPrincipalToJSON,
 } from '../models/index';
+
+export interface ChangeUserPasswordRequest {
+    passwordChangeContainer: PasswordChangeContainer;
+}
 
 export interface ResetPasswordRequest {
     email: string;
@@ -56,6 +63,44 @@ export interface UpdateUserRequest {
  * 
  */
 export class UserControllerApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async changeUserPasswordRaw(requestParameters: ChangeUserPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['passwordChangeContainer'] == null) {
+            throw new runtime.RequiredError(
+                'passwordChangeContainer',
+                'Required parameter "passwordChangeContainer" was null or undefined when calling changeUserPassword().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/user/updatePassword`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PasswordChangeContainerToJSON(requestParameters['passwordChangeContainer']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async changeUserPassword(requestParameters: ChangeUserPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.changeUserPasswordRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */

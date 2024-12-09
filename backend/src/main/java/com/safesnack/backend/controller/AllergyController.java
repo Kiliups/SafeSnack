@@ -5,7 +5,7 @@ import com.safesnack.backend.model.Authority;
 import com.safesnack.backend.model.UserMeta;
 import com.safesnack.backend.model.UserPrincipal;
 import com.safesnack.backend.repository.IAllergyRepository;
-import com.safesnack.backend.repository.IUserPrincipalRepo;
+import com.safesnack.backend.service.CustomUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -17,12 +17,11 @@ import java.util.Optional;
 @RestController
 public class AllergyController {
 
-    private final IUserPrincipalRepo userPrincipalRepo;
-
+    private final CustomUserService userService;
     private final IAllergyRepository allergyRepo;
 
-    public AllergyController(IUserPrincipalRepo userPrincipalRepo, IAllergyRepository allergyRepo) {
-        this.userPrincipalRepo = userPrincipalRepo;
+    public AllergyController(CustomUserService userService, IAllergyRepository allergyRepo) {
+        this.userService = userService;
         this.allergyRepo = allergyRepo;
     }
 
@@ -56,7 +55,7 @@ public class AllergyController {
 
             // add allergy to user
             meta.getAllergies().add(dbAllergy.get());
-            userPrincipalRepo.save(principal);
+            userService.updateUserMeta(meta);
             return ResponseEntity.ok("Allergy added");
         } else {
             // restaurant has called this endpoint -> not allowed
@@ -70,7 +69,7 @@ public class AllergyController {
 
         if (principal.getUserMeta() instanceof UserMeta meta) {
             meta.getAllergies().remove(allergy);
-            userPrincipalRepo.save(principal);
+            userService.updateUserMeta(meta);
             return ResponseEntity.ok("Allergy removed");
         } else {
             // restaurant has called this endpoint -> not allowed
@@ -99,7 +98,7 @@ public class AllergyController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
         System.out.println("new Allergy added to Db: " + allergy.getName());
-        return ResponseEntity.ok("Allergy added");
+        return ResponseEntity.ok("Allergy '" + allergy.getName() + "' added");
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
