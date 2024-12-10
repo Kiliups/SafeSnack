@@ -64,5 +64,3 @@ public class UserPrincipal implements UserDetails {
         enabled = true;
     }
 }
-
-

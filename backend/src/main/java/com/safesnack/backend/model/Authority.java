@@ -25,4 +25,3 @@ public class Authority extends AbstractIdEntity implements GrantedAuthority {
         return authority.name();
     }
 }
-
