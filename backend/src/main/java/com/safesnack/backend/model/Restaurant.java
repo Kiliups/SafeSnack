@@ -1,11 +1,11 @@
 package com.safesnack.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,6 +15,8 @@ public class Restaurant extends UserMetaBase {
     @OneToOne
     private Address address;
     private String description;
-    @ManyToOne
-    private Menu menu;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference // Prevent infinite recursion
+    private List<Menu> menu;
 }
