@@ -38,6 +38,7 @@
             {#if $isAdmin}
                 <a href="/admin" class="hover:text-indigo-300">Admin Dashboard</a>
             {/if}
+            <a href="/menu" class="hover:text-indigo-300">Menu overview (temporary)</a>
         </div>
 
         <!-- Logout Button (Always Visible) -->
@@ -71,5 +72,8 @@
                 Admin Dashboard
             </a>
         {/if}
+        <a href="/menu" class="block text-sm font-medium text-gray-300 hover:bg-gray-700 px-4 py-2">
+            Menus of restaurants (temporary)
+        </a>
     </div>
 </nav>
