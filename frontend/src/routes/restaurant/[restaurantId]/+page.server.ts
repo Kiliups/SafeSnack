@@ -17,6 +17,6 @@ export async function load(event: PageServerLoadEvent) {
 	}
 
 	return {
-		restaurant: restaurant
+		restaurantContainer: restaurant
 	};
 }

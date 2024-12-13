@@ -16,7 +16,7 @@ public class RestaurantRating extends AbstractIdEntity {
     private String comment;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserPrincipal user;
+    private UserMeta user;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;

@@ -16,7 +16,7 @@
 import * as runtime from '../runtime';
 import type {
   PageRestaurant,
-  Restaurant,
+  RestaurantContainer,
 } from '../models/index';
 
 export interface GetRestaurantByIdRequest {
@@ -36,7 +36,7 @@ export class RestaurantControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async getRestaurantByIdRaw(requestParameters: GetRestaurantByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Restaurant>> {
+    async getRestaurantByIdRaw(requestParameters: GetRestaurantByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RestaurantContainer>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -60,7 +60,7 @@ export class RestaurantControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async getRestaurantById(requestParameters: GetRestaurantByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Restaurant> {
+    async getRestaurantById(requestParameters: GetRestaurantByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RestaurantContainer> {
         const response = await this.getRestaurantByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }

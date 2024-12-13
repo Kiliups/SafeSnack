@@ -130,13 +130,13 @@ export interface PageRestaurant {
      * @type {number}
      * @memberof PageRestaurant
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRestaurant
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -163,6 +163,12 @@ export interface PageRestaurant {
     sort?: Array<SortObject>;
     /**
      * 
+     * @type {number}
+     * @memberof PageRestaurant
+     */
+    numberOfElements?: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof PageRestaurant
      */
@@ -173,12 +179,6 @@ export interface PageRestaurant {
      * @memberof PageRestaurant
      */
     last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageRestaurant
-     */
-    numberOfElements?: number;
     /**
      * 
      * @type {PageableObject}
@@ -215,25 +215,25 @@ export interface PageableObject {
      * @type {boolean}
      * @memberof PageableObject
      */
-    unpaged?: boolean;
+    paged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof PageableObject
      */
-    paged?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageableObject
-     */
-    pageSize?: number;
+    unpaged?: boolean;
     /**
      * 
      * @type {number}
      * @memberof PageableObject
      */
     pageNumber?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    pageSize?: number;
 }
 /**
  * 
@@ -301,6 +301,25 @@ export interface Restaurant extends UserMetaBase {
 /**
  * 
  * @export
+ * @interface RestaurantContainer
+ */
+export interface RestaurantContainer {
+    /**
+     * 
+     * @type {Restaurant}
+     * @memberof RestaurantContainer
+     */
+    restaurant?: Restaurant;
+    /**
+     * 
+     * @type {Array<RestaurantRating>}
+     * @memberof RestaurantContainer
+     */
+    restaurantRatings?: Array<RestaurantRating>;
+}
+/**
+ * 
+ * @export
  * @interface RestaurantRating
  */
 export interface RestaurantRating {
@@ -324,10 +343,10 @@ export interface RestaurantRating {
     comment?: string;
     /**
      * 
-     * @type {UserPrincipal}
+     * @type {UserMeta}
      * @memberof RestaurantRating
      */
-    user?: UserPrincipal;
+    user?: UserMeta;
     /**
      * 
      * @type {Restaurant}

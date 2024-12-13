@@ -18,6 +18,18 @@ import type {
   RestaurantRating,
 } from '../models/index';
 
+export interface AddRestaurantRatingRequest {
+    restaurantRating: RestaurantRating;
+}
+
+export interface DeleteRestaurantRatingRequest {
+    id: number;
+}
+
+export interface UpdateRestaurantRatingRequest {
+    restaurantRating: RestaurantRating;
+}
+
 /**
  * 
  */
@@ -25,16 +37,26 @@ export class RestaurantRatingControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async getRestaurantRatingRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<RestaurantRating>>> {
+    async addRestaurantRatingRaw(requestParameters: AddRestaurantRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RestaurantRating>> {
+        if (requestParameters['restaurantRating'] == null) {
+            throw new runtime.RequiredError(
+                'restaurantRating',
+                'Required parameter "restaurantRating" was null or undefined when calling addRestaurantRating().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        headerParameters['Content-Type'] = 'application/json';
+
         const response = await this.request({
             path: `/restaurantRating`,
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: requestParameters['restaurantRating'],
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response);
@@ -42,8 +64,77 @@ export class RestaurantRatingControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async getRestaurantRating(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RestaurantRating>> {
-        const response = await this.getRestaurantRatingRaw(initOverrides);
+    async addRestaurantRating(requestParameters: AddRestaurantRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RestaurantRating> {
+        const response = await this.addRestaurantRatingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async deleteRestaurantRatingRaw(requestParameters: DeleteRestaurantRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteRestaurantRating().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/restaurantRating/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async deleteRestaurantRating(requestParameters: DeleteRestaurantRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.deleteRestaurantRatingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updateRestaurantRatingRaw(requestParameters: UpdateRestaurantRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RestaurantRating>> {
+        if (requestParameters['restaurantRating'] == null) {
+            throw new runtime.RequiredError(
+                'restaurantRating',
+                'Required parameter "restaurantRating" was null or undefined when calling updateRestaurantRating().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/restaurantRating`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['restaurantRating'],
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     */
+    async updateRestaurantRating(requestParameters: UpdateRestaurantRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RestaurantRating> {
+        const response = await this.updateRestaurantRatingRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

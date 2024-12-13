@@ -1,28 +1,47 @@
 package com.safesnack.backend.controller;
 
 import com.safesnack.backend.model.RestaurantRating;
-import com.safesnack.backend.service.RestaurantRatingService;
+import com.safesnack.backend.repository.IRestaurantRatingRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.logging.Logger;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 public class RestaurantRatingController {
 
-    private final RestaurantRatingService service;
+    private final IRestaurantRatingRepository restaurantRatingRepository;
 
-    @GetMapping("/restaurantRating")
-    public List<RestaurantRating> getRestaurantRating() {
-        Logger logger = Logger.getLogger(RestaurantRatingController.class.getName());
-        logger.info("RestaurantRatingController.getRestaurantRating()");
-        return service.findAll();
+    @PostMapping("/restaurantRating")
+    public ResponseEntity<RestaurantRating> addRestaurantRating(@RequestBody RestaurantRating restaurantRating) {
+        try {
+            RestaurantRating newRestaurantRating = restaurantRatingRepository.save(restaurantRating);
+            return ResponseEntity.ok(newRestaurantRating);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @PutMapping("/restaurantRating")
+    public ResponseEntity<RestaurantRating> updateRestaurantRating(@RequestBody RestaurantRating restaurantRating) {
+        try {
+            RestaurantRating newRestaurantRating = restaurantRatingRepository.save(restaurantRating);
+            return ResponseEntity.ok(newRestaurantRating);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @DeleteMapping("/restaurantRating/{id}")
+    public ResponseEntity<String> deleteRestaurantRating(@PathVariable Integer id) {
+        try {
+            restaurantRatingRepository.deleteById(id);
+            return ResponseEntity.ok("Restaurant rating deleted successfully");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
+        }
     }
 }
