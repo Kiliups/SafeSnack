@@ -17,10 +17,6 @@ import * as runtime from '../runtime';
 import type {
   RestaurantRating,
 } from '../models/index';
-import {
-    RestaurantRatingFromJSON,
-    RestaurantRatingToJSON,
-} from '../models/index';
 
 /**
  * 
@@ -41,7 +37,7 @@ export class RestaurantRatingControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RestaurantRatingFromJSON));
+        return new runtime.JSONApiResponse(response);
     }
 
     /**

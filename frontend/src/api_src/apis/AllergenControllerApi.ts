@@ -17,10 +17,6 @@ import * as runtime from '../runtime';
 import type {
   Allergen,
 } from '../models/index';
-import {
-    AllergenFromJSON,
-    AllergenToJSON,
-} from '../models/index';
 
 export interface CreateAllergenRequest {
     name: string;
@@ -72,7 +68,7 @@ export class AllergenControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AllergenFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response);
     }
 
     /**
@@ -146,7 +142,7 @@ export class AllergenControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AllergenFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response);
     }
 
     /**
@@ -181,7 +177,7 @@ export class AllergenControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AllergenFromJSON));
+        return new runtime.JSONApiResponse(response);
     }
 
     /**
@@ -205,7 +201,7 @@ export class AllergenControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AllergenFromJSON));
+        return new runtime.JSONApiResponse(response);
     }
 
     /**
@@ -236,7 +232,7 @@ export class AllergenControllerApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: AllergenToJSON(requestParameters['allergen']),
+            body: requestParameters['allergen'],
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {

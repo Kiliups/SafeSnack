@@ -21,18 +21,6 @@ import type {
   UserMeta,
   UserPrincipal,
 } from '../models/index';
-import {
-    PasswordChangeContainerFromJSON,
-    PasswordChangeContainerToJSON,
-    PasswordResetContainerFromJSON,
-    PasswordResetContainerToJSON,
-    UserContainerFromJSON,
-    UserContainerToJSON,
-    UserMetaFromJSON,
-    UserMetaToJSON,
-    UserPrincipalFromJSON,
-    UserPrincipalToJSON,
-} from '../models/index';
 
 export interface ChangeUserPasswordRequest {
     passwordChangeContainer: PasswordChangeContainer;
@@ -85,7 +73,7 @@ export class UserControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PasswordChangeContainerToJSON(requestParameters['passwordChangeContainer']),
+            body: requestParameters['passwordChangeContainer'],
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -116,7 +104,7 @@ export class UserControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UserContainerFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response);
     }
 
     /**
@@ -186,7 +174,7 @@ export class UserControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PasswordResetContainerToJSON(requestParameters['passwordResetContainer']),
+            body: requestParameters['passwordResetContainer'],
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -265,7 +253,7 @@ export class UserControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserPrincipalToJSON(requestParameters['userPrincipal']),
+            body: requestParameters['userPrincipal'],
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -303,10 +291,10 @@ export class UserControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserMetaToJSON(requestParameters['userMeta']),
+            body: requestParameters['userMeta'],
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UserMetaFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response);
     }
 
     /**

@@ -150,12 +150,14 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <generatorName>typescript-fetch</generatorName>
                             <configOptions>
-                                <supportsInheritance>true</supportsInheritance>
+                                <supportsES6>true</supportsES6>
+                                <withoutRuntimeChecks>true
+                                </withoutRuntimeChecks> <!-- for pagination to work otherwise json.sort error -->
                             </configOptions>
                             <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
                             <output>${project.basedir}/../frontend/src/api_src</output>
-                            <generatorName>typescript-fetch</generatorName>
                         </configuration>
                     </execution>
                 </executions>

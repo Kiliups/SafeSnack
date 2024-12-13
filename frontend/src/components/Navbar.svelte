@@ -35,6 +35,7 @@
         <div class="hidden md:flex space-x-4">
             <a href="/" class="hover:text-indigo-300">Home</a>
             <a href="/user/profile" class="hover:text-indigo-300">Profile</a>
+            <a href="/restaurant" class="hover:text-indigo-300">Restaurant</a>
             {#if $isAdmin}
                 <a href="/admin" class="hover:text-indigo-300">Admin Dashboard</a>
             {/if}
@@ -62,6 +63,9 @@
         </a>
         <a href="/user/profile" class="block text-sm font-medium text-gray-300 hover:bg-gray-700 px-4 py-2">
             Profile
+        </a>
+        <a href="/restaurant" class="block text-sm font-medium text-gray-300 hover:bg-gray-700 px-4 py-2">
+            Restaurant
         </a>
         {#if $isAdmin}
             <a
