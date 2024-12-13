@@ -68,7 +68,17 @@ public class UserController {
         UserPrincipal principal =
                 (UserPrincipal) authentication.getPrincipal();
         UserContainer userContainer = new UserContainer();
-        userContainer.setUser((UserMeta) principal.getUserMeta());
+        if (principal.getUserMeta() instanceof Restaurant) {
+            UserMetaBase restaurant = restaurantRepo.findById(principal.getUserMeta().getId()).orElse(null);
+            assert restaurant != null;
+            restaurant.setType("restaurant");
+            userContainer.setUser(restaurant);
+        } else {
+            UserMetaBase userMeta = userMetaRepo.findById(principal.getUserMeta().getId()).orElse(null);
+            assert userMeta != null;
+            userMeta.setType("user_meta");
+            userContainer.setUser(userMeta);
+        }
         userContainer.setRoles(principal.getAuthorities());
         return userContainer;
     }
@@ -149,6 +159,7 @@ public class UserController {
             if (userMetaRepo.findUserMetaByEmail(userMeta.getEmail()).isPresent()) {
                 return ResponseEntity.badRequest().body("Email already in use. Log in instead.");
             }
+            userMeta.setType("user_meta");
             saveUserPrincipal(user, password);
             userMetaRepo.save((UserMeta) userMeta);
             return ResponseEntity.ok("User account created successfully.");
@@ -156,10 +167,7 @@ public class UserController {
             if (restaurantRepo.findByEmail(userMeta.getEmail()).isPresent()) {
                 return ResponseEntity.badRequest().body("Email already in use. Log in instead.");
             }
-            final Address address = ((Restaurant) userMeta).getAddress();
-            if (address != null) {
-                ((Restaurant) userMeta).setAddress(addressRepo.save(address));
-            }
+            userMeta.setType("restaurant");
             saveUserPrincipal(user, password);
             restaurantRepo.save((Restaurant) userMeta);
             return ResponseEntity.ok("Restaurant account created successfully.");

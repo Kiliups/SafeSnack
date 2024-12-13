@@ -130,13 +130,13 @@ export interface PageRestaurant {
      * @type {number}
      * @memberof PageRestaurant
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRestaurant
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -163,12 +163,6 @@ export interface PageRestaurant {
     sort?: Array<SortObject>;
     /**
      * 
-     * @type {number}
-     * @memberof PageRestaurant
-     */
-    numberOfElements?: number;
-    /**
-     * 
      * @type {boolean}
      * @memberof PageRestaurant
      */
@@ -179,6 +173,12 @@ export interface PageRestaurant {
      * @memberof PageRestaurant
      */
     last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageRestaurant
+     */
+    numberOfElements?: number;
     /**
      * 
      * @type {PageableObject}
@@ -215,13 +215,13 @@ export interface PageableObject {
      * @type {boolean}
      * @memberof PageableObject
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof PageableObject
      */
-    unpaged?: boolean;
+    paged?: boolean;
     /**
      * 
      * @type {number}
@@ -399,10 +399,10 @@ export interface SortObject {
 export interface UserContainer {
     /**
      * 
-     * @type {UserMeta}
+     * @type {UserPrincipalUserMeta}
      * @memberof UserContainer
      */
-    user?: UserMeta;
+    user?: UserPrincipalUserMeta;
     /**
      * 
      * @type {Array<Authority>}

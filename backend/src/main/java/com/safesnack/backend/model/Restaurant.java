@@ -1,9 +1,6 @@
 package com.safesnack.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends UserMetaBase {
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Address address;
     private String description;
     @ManyToOne

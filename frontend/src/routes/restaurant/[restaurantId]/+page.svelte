@@ -112,10 +112,11 @@
             </div>
         {/if}
         <!-- add ratings form -->
-        <Input classLabel="hidden" label="Search" id={3} bind:value={newRatingNumber}
+        <Input bind:value={newRatingNumber}
                placeHolder="Enter your rating"
-               required={false}/>
-        <Input classLabel="hidden" label="Search" id={3} bind:value={newRatingComment}
+               required={false} type="number"
+        />
+        <Input bind:value={newRatingComment}
                placeHolder="Enter your comment"
                required={false}/>
         <button class="bg-primary text-white p-2 rounded shadow" onclick={()=>saveNewRating()}>Save

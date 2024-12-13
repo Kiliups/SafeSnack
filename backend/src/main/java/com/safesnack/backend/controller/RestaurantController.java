@@ -5,15 +5,13 @@ import com.safesnack.backend.model.Restaurant;
 import com.safesnack.backend.model.RestaurantRating;
 import com.safesnack.backend.repository.IRestaurantRatingRepository;
 import com.safesnack.backend.repository.IRestaurantRepo;
+import com.safesnack.backend.repository.IUserPrincipalRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +21,7 @@ public class RestaurantController {
 
     IRestaurantRepo restaurantRepo;
     IRestaurantRatingRepository restaurantRatingRepository;
+    IUserPrincipalRepo userPrincipalRepo;
 
     @GetMapping("/searchRestaurant")
     public ResponseEntity<Page<Restaurant>> searchRestaurant(@RequestParam String keyword,
@@ -45,6 +44,40 @@ public class RestaurantController {
             List<RestaurantRating> restaurantRatings = restaurantRatingRepository.findRestaurantRatingByRestaurant_Id(id).orElse(null);
             RestaurantContainer restaurantContainer = new RestaurantContainer(restaurant, restaurantRatings);
             return ResponseEntity.ok(restaurantContainer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @PostMapping("/restaurant")
+    public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurant) {
+        try {
+            Restaurant newRestaurant = restaurantRepo.save(restaurant);
+            return ResponseEntity.ok(newRestaurant);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @PutMapping("/restaurant")
+    public ResponseEntity<Restaurant> updateRestaurant(@RequestBody Restaurant restaurant) {
+        try {
+            Restaurant newRestaurant = restaurantRepo.save(restaurant);
+            return ResponseEntity.ok(newRestaurant);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @DeleteMapping("/restaurant/{id}")
+    public ResponseEntity<String> deleteRestaurant(@PathVariable Long id) {
+        try {
+            userPrincipalRepo.findByuserMeta(restaurantRepo.findById(id).orElse(null)).ifPresent(userPrincipalRepo::delete);
+            restaurantRepo.deleteById(id);
+            return ResponseEntity.ok("Restaurant deleted successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().body(null);

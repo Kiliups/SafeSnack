@@ -11,6 +11,7 @@
         UserControllerApi
     } from "../../../../api_src";
     import ConfirmPopUp from "../../../../components/ConfirmPopUp.svelte";
+    import {goto} from "$app/navigation";
 
     let allAllergies: Allergy[] = [];
     let userAllergies: Allergy[] = [];
@@ -25,6 +26,9 @@
     let showPopup = false;
 
     onMount(() => {
+        if ($authStore!.user!.type === 'restaurant') {
+            goto('/restaurant/edit');
+        }
         refreshAllergies();
     });
 
