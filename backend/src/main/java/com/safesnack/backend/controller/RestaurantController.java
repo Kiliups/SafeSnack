@@ -3,6 +3,7 @@ package com.safesnack.backend.controller;
 import com.safesnack.backend.container.RestaurantContainer;
 import com.safesnack.backend.model.Restaurant;
 import com.safesnack.backend.model.RestaurantRating;
+import com.safesnack.backend.repository.IAdressRepo;
 import com.safesnack.backend.repository.IRestaurantRatingRepository;
 import com.safesnack.backend.repository.IRestaurantRepo;
 import com.safesnack.backend.repository.IUserPrincipalRepo;
@@ -22,6 +23,7 @@ public class RestaurantController {
     IRestaurantRepo restaurantRepo;
     IRestaurantRatingRepository restaurantRatingRepository;
     IUserPrincipalRepo userPrincipalRepo;
+    IAdressRepo adressRepo;
 
     @GetMapping("/searchRestaurant")
     public ResponseEntity<Page<Restaurant>> searchRestaurant(@RequestParam String keyword,
@@ -64,6 +66,7 @@ public class RestaurantController {
     @PutMapping("/restaurant")
     public ResponseEntity<Restaurant> updateRestaurant(@RequestBody Restaurant restaurant) {
         try {
+            adressRepo.save(restaurant.getAddress());
             Restaurant newRestaurant = restaurantRepo.save(restaurant);
             return ResponseEntity.ok(newRestaurant);
         } catch (Exception e) {
